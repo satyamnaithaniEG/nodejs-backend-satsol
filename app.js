@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -7,6 +8,8 @@ const mongoose = require('mongoose');
 const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 const userRoutes = require('./routes/user')
+
+app.use(cors());
 
 mongoose.connect('mongodb+srv://satsol:' + process.env.MONGO_ATLAS_PW + '@cluster0-wmljt.mongodb.net/test?retryWrites=true&w=majority');
 
