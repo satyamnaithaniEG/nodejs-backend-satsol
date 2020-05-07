@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
-const orderSchema = mongoose.Schema({
+const stockSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    itemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Item', required: true},
-    stockId: {type: String},
+    //itemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Item', required: true},
     item: { type: String },
     lotNo: { type: String },
     billNo: { type: String },
@@ -18,4 +17,4 @@ const orderSchema = mongoose.Schema({
     uom: {type: String}
 });
 
-module.exports = mongoose.model('Order', orderSchema);
+module.exports = mongoose.model('Stock', stockSchema);

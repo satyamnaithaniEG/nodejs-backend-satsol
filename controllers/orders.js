@@ -1,3 +1,126 @@
+// const mongoose = require('mongoose');
+// const MongoClient = require('mongodb').MongoClient;
+
+// const Order= require('../models/order');
+// const Stock = require('../models/stock');
+
+// const client = new MongoClient( "mongodb+srv://satsol:' + process.env.MONGO_ATLAS_PW + '@cluster0-wmljt.mongodb.net/test?retryWrites=true&w=majority");
+// //   await client.connect();
+
+
+// exports.orders_get_all =  (req, res, next) => {
+//     Order.find()
+//     .select()
+//     .exec()
+//     .then(docs => {
+//         res.status(200).json({
+//             count: docs.length,
+//             orders: docs.map(doc => {
+//                 return {
+//                     data: doc
+//                 }
+//             })
+           
+//         });
+//     })
+//     .catch(err => {
+//         res.status(500).json({
+//             error: err
+//         })
+//     });
+// }
+
+// exports.orders_create_order =  (req, res, next) => {
+
+//     async function commitWithRetry(session) {
+//         try {
+//           await session.commitTransaction();
+//           console.log('Transaction committed.');
+//         } catch (error) {
+//           if (error.hasErrorLabel('UnknownTransactionCommitResult')) {
+//             console.log('UnknownTransactionCommitResult, retrying commit operation ...');
+//             await commitWithRetry(session);
+//           } else {
+//             console.log('Error during commit ...');
+//             throw error;
+//           }
+//         }
+//       }
+      
+//       async function runTransactionWithRetry(txnFunc, session) {
+//         try {
+//           await txnFunc(session);
+//         } catch (error) {
+//           console.log('Transaction aborted. Caught exception during transaction.');
+      
+//           // If transient error, retry the whole transaction
+//           if (error.hasErrorLabel('TransientTransactionError')) {
+//             console.log('TransientTransactionError, retrying transaction ...');
+//             await runTransactionWithRetry(txnFunc,session);
+//           } else {
+//             throw error;
+//           }
+//         }
+//       }
+      
+//       async function updateEmployeeInfo(session) {
+//         session.startTransaction({
+//           readConcern: { level: 'snapshot' },
+//           writeConcern: { w: 'majority' },
+//           readPreference: 'primary'
+//         });
+      
+//         const stock = Stock;
+//         const order = new Order({
+//             _id: mongoose.Types.ObjectId(),
+//             stockId: req.body.stockId,
+//             item: req.body.item,
+//             lotNo: req.body.lotNo,
+//             billNo: req.body.billNo,
+//             exp: req.body.exp,
+//             vendor: req.body.vendor,
+//             quantity:req.body.quantity,
+//             rate: req.body.rate,
+//             gst: req.body.gst,
+//             purchaseRate: req.body.purchaseRate,
+//             receivedate: req.body.receivedate,
+//             billDate: req.body.billDate,
+//             uom: req.body.uom
+//         });
+
+//         await stock.update(
+//             {_id: id}, 
+//             { $set: { 
+//                 item: req.body.item,
+//                 lotNo: req.body.lotNo,
+//                 billNo: req.body.billNo,
+//                 exp: req.body.exp,
+//                 vendor: req.body.vendor,
+//                 quantity:req.body.prevQuantity - req.body.quantity,
+//                 rate: req.body.rate,
+//                 gst: req.body.gst,
+//                 purchaseRate: req.body.purchaseRate,
+//                 receivedate: req.body.receivedate,
+//                 billDate: req.body.billDate,
+//                 uom: req.body.uom
+//             } },
+//             { session }
+//         );
+//         await order.save({ session });
+      
+//         try {
+//           await commitWithRetry(session);
+//         } catch (error) {
+//           await session.abortTransaction();
+//           throw error;
+//         }
+//       }
+      
+//       return client.withSession(session =>
+//         runTransactionWithRetry(updateEmployeeInfo, session)
+//       );
+// }
+
 const mongoose = require('mongoose');
 
 const Order= require('../models/order');

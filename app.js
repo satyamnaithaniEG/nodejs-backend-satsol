@@ -7,7 +7,11 @@ const mongoose = require('mongoose');
 
 const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
-const userRoutes = require('./routes/user')
+const userRoutes = require('./routes/user');
+const vendorRoutes = require('./routes/vendors')
+const customersRoutes = require('./routes/customers');
+const itemsRoute = require('./routes/items');
+const stockRoute = require('./routes/stock');
 
 app.use(cors());
 
@@ -19,23 +23,15 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');  //Instead of '*' if you replace with your domain name then no other website will be able to access your api except your domain name
-//     res.header('Access-Control-Allow-Headers',
-//         'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-
-// if(req.method === 'OPTIONS') {
-//     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
-//     return res.status(200).json({});
-
-// }
-// });
-
 
 // Routes which handle requests 
-app.use('/products', productRoutes);
+
 app.use('/orders', orderRoutes);
 app.use('/user', userRoutes);
+app.use('/vendors', vendorRoutes);
+app.use('/customers', customersRoutes);
+app.use('/items', itemsRoute);
+app.use('/stock', stockRoute);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
@@ -48,6 +44,7 @@ app.use((error, req, res, next) => {
     res.status(error.status || 500);
     res.json({
         error: {
+            descrption: 'Invalid Route',
             message: error.message
         }
     });
