@@ -57,6 +57,7 @@ exports.stock_add_item =  (req, res, next) => {
                         exp: req.body.exp,
                         vendor: req.body.vendor,
                         quantity:req.body.quantity,
+                        initialQuantity: req.body.quantity,
                         rate: req.body.rate,
                         gst: req.body.gst,
                         purchaseRate: req.body.purchaseRate,

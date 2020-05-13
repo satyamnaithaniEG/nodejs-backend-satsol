@@ -3,6 +3,31 @@ const Customer = require('../models/customers')
 const mongoose = require('mongoose');
 
 
+exports.customers_get_all_customers= (req, res, next) => {
+    Customer.find().select('name')
+    .exec()
+    .then(docs => {
+      const response = {
+          count: docs.length,
+          items: docs.map(doc => {
+              return {
+                data: doc
+              }
+          })
+      }
+      res.status(200).json(response)
+  
+  })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error:err
+        })
+  
+    })
+}
+
+
   exports.customers_create_customers =  (req, res, next) => {
 
     const customer = new Customer({

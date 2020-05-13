@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 const orderSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    itemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Item', required: true},
+    itemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Item'},
     stockId: {type: String},
+    customer: {type: String},
     item: { type: String },
     lotNo: { type: String },
     billNo: { type: String },
