@@ -5,13 +5,14 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const productRoutes = require('./routes/products');
+//const productRoutes = require('./routes/products');
 const orderRoutes = require('./routes/orders');
 const userRoutes = require('./routes/user');
 const vendorRoutes = require('./routes/vendors')
 const customersRoutes = require('./routes/customers');
 const itemsRoute = require('./routes/items');
 const stockRoute = require('./routes/stock');
+const pdfInvoice = require('./routes/invoice_pdf');
 
 app.use(cors());
 
@@ -32,6 +33,7 @@ app.use('/vendors', vendorRoutes);
 app.use('/customers', customersRoutes);
 app.use('/items', itemsRoute);
 app.use('/stock', stockRoute);
+app.use('/pdf', pdfInvoice);
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');

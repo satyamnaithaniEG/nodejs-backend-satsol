@@ -10,11 +10,7 @@ exports.orders_get_all = (req, res, next) => {
         .then(docs => {
             res.status(200).json({
                 count: docs.length,
-                orders: docs.map(doc => {
-                    return {
-                        data: doc
-                    }
-                })
+                data: docs
             });
         })
         .catch(err => {
@@ -86,4 +82,23 @@ exports.orders_create_order = async (req, res, next) => {
         session.endSession()
         throw err
     }
+}
+
+
+exports.orders_delete_order = (req, res, next) => {
+    const id = req.params.orderId;
+    Order.remove({_id: id})
+    .exec()
+    .then(result => {
+        res.status(200).json({
+            message: 'Product deleted',
+            statement: result
+        })
+    })
+    .catch(err => {
+        console.log(err)
+        res.status(500).json({
+            error: err
+        });
+    });
 }
