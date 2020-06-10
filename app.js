@@ -34,6 +34,11 @@ app.use('/customers', customersRoutes);
 app.use('/items', itemsRoute);
 app.use('/stock', stockRoute);
 app.use('/pdf', pdfInvoice);
+app.use('/', (req, res) => {
+    res.json({Author: "satyam naithani"})
+})
+app.use(ignoreFavicon);
+
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
@@ -52,6 +57,14 @@ app.use((error, req, res, next) => {
     });
 
 });
+
+function ignoreFavicon(req, res, next) {
+    if (req.originalUrl === '/favicon.ico') {
+      res.status(204).json({nope: true});
+    } else {
+      next();
+    }
+  }
 
 
 
