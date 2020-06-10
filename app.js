@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const morgan = require('morgan');
+//const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -20,7 +20,7 @@ mongoose.connect('mongodb+srv://satsol:' + process.env.MONGO_ATLAS_PW + '@cluste
 
 mongoose.Promise = global.Promise;
 
-app.use(morgan('dev'));
+//app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
@@ -37,7 +37,6 @@ app.use('/pdf', pdfInvoice);
 app.use('/', (req, res) => {
     res.json({Author: "satyam naithani"})
 })
-app.use(ignoreFavicon);
 
 
 app.use((req, res, next) => {
@@ -58,13 +57,6 @@ app.use((error, req, res, next) => {
 
 });
 
-function ignoreFavicon(req, res, next) {
-    if (req.originalUrl === '/favicon.ico') {
-      res.status(204).json({nope: true});
-    } else {
-      next();
-    }
-  }
 
 
 
