@@ -51,7 +51,7 @@ exports.orders_create_order = async (req, res, next) => {
              .exec()
              .then(res=> {global.stockQuantity = res.quantity - req.body.quantity})
              .catch(err=>console.log(err))
-      
+
         await Stock.updateOne(
             { _id: req.body.stockId },
             { 
@@ -82,6 +82,8 @@ exports.orders_create_order = async (req, res, next) => {
         session.endSession()
         throw err
     }
+// Removing stock items with 0 quantity
+   await Stock.deleteMany({"quantity": 0})
 }
 
 

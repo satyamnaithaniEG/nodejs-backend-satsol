@@ -9,7 +9,7 @@ const pdfTemplate = require('../PdfFile/index');
 
 
 router.post('/create-pdf', (req, res) => {
-    pdf.create(pdfTemplate(req.body), {}).toFile('routes/result.pdf', (err) => {
+    pdf.create(pdfTemplate(req.body), { format: 'A4', width:"11in", height:"17in" }).toFile('routes/result.pdf', (err) => {
             if(err) {
             res.send(Promise.reject());
             console.log(err)
