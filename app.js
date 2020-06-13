@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-//const morgan = require('morgan');
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -20,7 +20,7 @@ mongoose.connect('mongodb+srv://satsol:' + process.env.MONGO_ATLAS_PW + '@cluste
 
 mongoose.Promise = global.Promise;
 
-//app.use(morgan('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
@@ -34,9 +34,6 @@ app.use('/customers', customersRoutes);
 app.use('/items', itemsRoute);
 app.use('/stock', stockRoute);
 app.use('/pdf', pdfInvoice);
-app.use('/', (req, res) => {
-    res.json({Author: "satyam naithani"})
-})
 
 
 app.use((req, res, next) => {
@@ -50,6 +47,7 @@ app.use((error, req, res, next) => {
     res.status(error.status || 500);
     res.json({
         error: {
+            author: 'Satyam Naithani',
             descrption: 'Invalid Route',
             message: error.message
         }
