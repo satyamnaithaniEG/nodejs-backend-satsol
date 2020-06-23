@@ -15,27 +15,27 @@ const stockRoute = require('./routes/stock');
 const pdfInvoice = require('./routes/invoice_pdf');
 const salesRoute = require('./routes/sales')
 
-// app.use(cors());
+app.use(cors());
 
-// mongoose.connect('mongodb+srv://satsol:' + process.env.MONGO_ATLAS_PW + '@cluster0-wmljt.mongodb.net/test?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://satsol:' + process.env.MONGO_ATLAS_PW + '@cluster0-wmljt.mongodb.net/test?retryWrites=true&w=majority');
 
-// mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
-// app.use(morgan('dev'));
-// app.use(bodyParser.urlencoded({extended: false}));
-// app.use(bodyParser.json());
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
 
 // Routes which handle requests 
 
-// app.use('/orders', orderRoutes);
-// app.use('/user', userRoutes);
-// app.use('/vendors', vendorRoutes);
-// app.use('/customers', customersRoutes);
-// app.use('/items', itemsRoute);
-// app.use('/stock', stockRoute);
-// app.use('/pdf', pdfInvoice);
-// app.use('/sales', salesRoute)
+app.use('/orders', orderRoutes);
+app.use('/user', userRoutes);
+app.use('/vendors', vendorRoutes);
+app.use('/customers', customersRoutes);
+app.use('/items', itemsRoute);
+app.use('/stock', stockRoute);
+app.use('/pdf', pdfInvoice);
+app.use('/sales', salesRoute)
 
 
 app.use((req, res, next) => {
