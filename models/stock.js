@@ -16,6 +16,7 @@ const stockSchema = mongoose.Schema({
     receiveDate: { type: String },
     billDate: {type: String},
     uom: {type: String},
+    hsn: {type: String}
 });
 
 module.exports = mongoose.model('Stock', stockSchema);

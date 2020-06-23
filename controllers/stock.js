@@ -63,7 +63,8 @@ exports.stock_add_item =  (req, res, next) => {
                         purchaseRate: req.body.purchaseRate,
                         receivedate: req.body.receivedate,
                         billDate: req.body.billDate,
-                        uom: req.body.uom
+                        uom: req.body.uom,
+                        hsn: req.body.hsn
                     });
                     return stock.save()
                     .then(result => {

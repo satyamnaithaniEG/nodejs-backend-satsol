@@ -13,6 +13,7 @@ const customersRoutes = require('./routes/customers');
 const itemsRoute = require('./routes/items');
 const stockRoute = require('./routes/stock');
 const pdfInvoice = require('./routes/invoice_pdf');
+const salesRoute = require('./routes/sales')
 
 app.use(cors());
 
@@ -34,6 +35,7 @@ app.use('/customers', customersRoutes);
 app.use('/items', itemsRoute);
 app.use('/stock', stockRoute);
 app.use('/pdf', pdfInvoice);
+app.use('/sales', salesRoute)
 
 
 app.use((req, res, next) => {

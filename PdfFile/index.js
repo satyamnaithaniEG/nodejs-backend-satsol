@@ -1,13 +1,13 @@
 module.exports = (arr) => {
 	const today = new Date();
 
-	var subTotal0 = arr[0] === '' ? 0 :parseFloat(arr[0].rate)* parseFloat(arr[0].quantity);
+	var subTotal0 = arr[0] === '' ? 0 :parseFloat(arr[0].rate)* parseFloat(arr[0].checkout);
 	var gstAmt0 = arr[0] === '' ? 0 :(parseFloat(arr[0].gst)/100)*subTotal0;
-	var subTotal1 = arr[1] === '' ? 0 :parseFloat(arr[1].rate)* parseFloat(arr[1].quantity);
+	var subTotal1 = arr[1] === '' ? 0 :parseFloat(arr[1].rate)* parseFloat(arr[1].checkout);
 	var gstAmt1 = arr[1] === '' ? 0 :(parseFloat(arr[1].gst)/100)*subTotal1;
-	var subTotal2 = arr[2] === '' ? 0 :parseFloat(arr[2].rate)* parseFloat(arr[2].quantity);
+	var subTotal2 = arr[2] === '' ? 0 :parseFloat(arr[2].rate)* parseFloat(arr[2].checkout);
 	var gstAmt2 = arr[2] === '' ? 0 :(parseFloat(arr[2].gst)/100)*subTotal2;
-	var subTotal3 =arr[3] === '' ? 0 : parseFloat(arr[3].rate)* parseFloat(arr[3].quantity);
+	var subTotal3 =arr[3] === '' ? 0 : parseFloat(arr[3].rate)* parseFloat(arr[3].checkout);
 	var gstAmt3 = arr[3] === '' ? 0 :(parseFloat(arr[3].gst)/100)*subTotal3;
  
  return `
@@ -37,7 +37,6 @@ module.exports = (arr) => {
 			<h3><strong>GST INVOICE</strong></h3>
 			<h4>Invoice No.: SS/20-21/009</h4>
 			<p>Date :  ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}</p>
-			<p>Bill Date :  ${arr[0].billDate}</p>
 		</div>
 	</div>
 
@@ -45,11 +44,11 @@ module.exports = (arr) => {
 		<div id="from">
 			<p>
 				Consignee: <br>
-				<strong>${arr[0].customer}</strong><br>
-				SUPER COMPLEX, RANIPUR MOR <br>
-				HARIDWAR-249 407 <br>
-				UTTARAKHAND <br><br>
-				GSTIN: 354678654356654 <br>
+				<strong>${arr[10]}</strong><br>
+				${arr[11]}<br>
+				${arr[12]}-${arr[13]} <br>
+				${arr[14]} <br><br>
+				GSTIN: ${arr[15]} <br>
 			</p>
 		</div>
 		<div id="to">
@@ -90,14 +89,14 @@ module.exports = (arr) => {
 					Expiry: ${arr[0].exp}
 					</div>
 				</td>
-				<td>${arr[0].lotNo}</td>
-				<td>${arr[0].quantity}</td>
+				<td>${arr[0].hsn}</td>
+				<td>${arr[0].checkout}</td>
 				<td>${arr[0].uom}</td>
 				<td>${parseFloat(arr[0].rate)}</td>
 				<td>${subTotal0}</td>
 				<td>${arr[0].gst}</td>
 				<td>${gstAmt0}</td>
-				<td>${(parseFloat(arr[0].gst)/100)*(parseFloat(arr[0].rate)* parseFloat(arr[0].quantity))+ parseFloat(arr[0].rate)* parseFloat(arr[0].quantity)}</td>
+				<td>${(parseFloat(arr[0].gst)/100)*(parseFloat(arr[0].rate)* parseFloat(arr[0].checkout))+ parseFloat(arr[0].rate)* parseFloat(arr[0].checkout)}</td>
 			</tr>
 		<tr>
 			<td>${arr[1] === '' ? '' : 2}</td>
@@ -108,8 +107,8 @@ module.exports = (arr) => {
 				${arr[1] === '' ? '' :'Expiry:' + arr[1].exp}
 				</div>
 			</td>
-			<td>${arr[1] === '' ? '' :arr[1].lotNo}</td>
-			<td>${arr[1] === '' ? '' :arr[1].quantity}</td>
+			<td>${arr[1] === '' ? '' :arr[1].hsn}</td>
+			<td>${arr[1] === '' ? '' :arr[1].checkout}</td>
 			<td>${arr[1] === '' ? '' :arr[1].uom}</td>
 			<td>${arr[1] === '' ? '' :parseFloat(arr[1].rate)}</td>
 			<td>${arr[1] === '' ? '' :subTotal1}</td>
@@ -127,8 +126,8 @@ module.exports = (arr) => {
 				${arr[2] === '' ? '' :'Expiry:' + arr[2].exp}
 				</div>
 			</td>
-			<td>${arr[2] === '' ? '' :arr[2].lotNo}</td>
-			<td>${arr[2] === '' ? '' :arr[2].quantity}</td>
+			<td>${arr[2] === '' ? '' :arr[2].hsn}</td>
+			<td>${arr[2] === '' ? '' :arr[2].checkout}</td>
 			<td>${arr[2] === '' ? '' :arr[2].uom}</td>
 			<td>${arr[2] === '' ? '' :parseFloat(arr[2].rate)}</td>
 			<td>${arr[2] === '' ? '' :subTotal2}</td>
@@ -145,8 +144,8 @@ module.exports = (arr) => {
 			${arr[3] === '' ? '' :'Expiry:' + arr[3].exp}
 			</div>
 		</td>
-		<td>${arr[3] === '' ? '' :arr[3].lotNo}</td>
-		<td>${arr[3] === '' ? '' :arr[3].quantity}</td>
+		<td>${arr[3] === '' ? '' :arr[3].hsn}</td>
+		<td>${arr[3] === '' ? '' :arr[3].checkout}</td>
 		<td>${arr[3] === '' ? '' :arr[3].uom}</td>
 		<td>${arr[3] === '' ? '' :parseFloat(arr[3].rate)}</td>
 		<td>${arr[3] === '' ? '' :subTotal3}</td>

@@ -16,7 +16,7 @@ const orderSchema = mongoose.Schema({
     purchaseRate: { type: Number },
     receiveDate: { type: String },
     billDate: {type: String},
-    uom: {type: String}
+    uom: {type: String}, 
 });
 
 module.exports = mongoose.model('Order', orderSchema);

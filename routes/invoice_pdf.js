@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 // const checkAuth = require('../middleware/check-auth')
-const SalesController = require('../controllers/sales')
+//const SalesController = require('../controllers/sales')
 
 //pdf Generate
 const pdf = require('html-pdf');
@@ -14,7 +14,7 @@ router.post('/create-pdf', (req, res) => {
             res.send(Promise.reject());
             console.log(err)
         }
-        SalesController.helloWorld(req, res)
+       // SalesController.helloWorld(req, res)
         res.send(Promise.resolve());
     });
 });

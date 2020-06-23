@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 
 
 exports.customers_get_all_customers= (req, res, next) => {
-    Customer.find().select('name')
+    Customer.find()
+    //.select('name')
     .exec()
     .then(docs => {
       const response = {
