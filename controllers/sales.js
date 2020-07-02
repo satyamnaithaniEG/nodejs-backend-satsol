@@ -2,7 +2,16 @@
 const Sales = require('../models/sales')
 const Stock = require('../models/stock');
 const mongoose = require('mongoose');
+const { ToWords } = require('to-words');
 
+const toWords = new ToWords({
+  localeCode: 'en-IN',
+  converterOptions: {
+    currency: true,
+    ignoreDecimal: false,
+    ignoreZeroCurrency: false,
+  }
+});
 
 exports.sales_create_sales =  async (req, res, next) => {
 
@@ -10,16 +19,36 @@ exports.sales_create_sales =  async (req, res, next) => {
   const session = await mongoose.startSession()
   session.startTransaction()
   try {
+    let totalRate = 0;
+    let totalGst = 0;
+    req.body.orderData.map(data=> {
+      totalRate = totalRate + (data.sellingRate*data.checkout)
+      totalGst = totalGst + data.sellingRate*(data.gst/100)*data.checkout
+        })
     const sales = new Sales({
       _id: new mongoose.Types.ObjectId(),
       orderData: req.body.orderData,
-      customer: req.body.customer
+      customer: req.body.customer,
+      date: req.body.date,
+      totalRate: totalRate,
+      totalGst: totalGst,
+      grandTotal: totalRate + totalGst,
+      customerName: req.body.customer.name,
+      invoiceNo: req.body.invoiceNo,
+      challanNo: req.body.challanNo,
+      challanDate: req.body.challanDate,
+      modeOfPayment: req.body.modeOfPayment,
+      orderNumber: req.body.orderNumber,
+      dispatchThrough: req.body.dispatchThrough,
+      destination: req.body.destination,
+      termsOfDelivery: req.body.termsOfDelivery,
+      interState:  req.body.interState,
+      grandTotalInWords: toWords.convert(totalRate + totalGst)
   });
     global.stockQuantity
     const data = req.body.orderData
     for(var i=0; i< data.length; i++)
     {
-      //console.log('hi')
       await Stock.findById(data[i]._id)
              .select('quantity')
              .exec()
@@ -75,3 +104,75 @@ exports.sales_create_sales =  async (req, res, next) => {
 // Removing stock items with 0 quantity
 await Stock.deleteMany({"quantity": 0})
 }
+
+exports.sales_get_sales =  (req, res, next) => {
+  Sales.find()
+    //.select()
+    .exec()
+    .then(docs => {
+      const response = {
+          count: docs.length,
+          sales: docs.map(doc => {
+              return {
+                  doc: doc
+              }
+          })
+      }
+      res.status(200).json(response)
+  
+  })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error:err
+        })
+  
+    })
+}
+
+
+exports.sales_get_sales_filter_gst =  (req, res, next) => {
+  var arr = new Array();
+  global.result = arr
+  global.array = new Array();
+  Sales.find()
+  .exec()
+  .then(sales => {
+   // res.status(200).json(sales)
+        sales.map(sale=> {
+        const result = sale.orderData.filter(data=> data.gst == req.params.gst_percent)
+        if(result.length !=0){
+          global.result.push(result)
+        }
+      })
+
+      for(var i=0; i< global.result.length; i++) {
+        for(var j=0; j<global.result[i].length;j++){
+          global.array.push(global.result[j])
+        }
+      }
+      
+    res.status(200).json(global.array)    
+  })
+}
+
+
+exports.sales_get_sales_filter_date =  (req, res, next) => {
+  Sales.find({"date":{ $gte:"2020-07-20", $lte:"2020-07-24" }
+})
+    //.select()
+    .exec()
+    .then(docs => {
+      
+      res.status(200).json(docs)
+  
+  })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            error:err
+        })
+  
+    })
+}
+

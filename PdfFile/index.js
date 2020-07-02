@@ -1,13 +1,13 @@
 module.exports = (arr) => {
 	const today = new Date();
 
-	var subTotal0 = arr[0] === '' ? 0 :parseFloat(arr[0].rate)* parseFloat(arr[0].checkout);
+	var subTotal0 = arr[0] === '' ? 0 :parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout);
 	var gstAmt0 = arr[0] === '' ? 0 :(parseFloat(arr[0].gst)/100)*subTotal0;
-	var subTotal1 = arr[1] === '' ? 0 :parseFloat(arr[1].rate)* parseFloat(arr[1].checkout);
+	var subTotal1 = arr[1] === '' ? 0 :parseFloat(arr[1].sellingRate)* parseFloat(arr[1].checkout);
 	var gstAmt1 = arr[1] === '' ? 0 :(parseFloat(arr[1].gst)/100)*subTotal1;
-	var subTotal2 = arr[2] === '' ? 0 :parseFloat(arr[2].rate)* parseFloat(arr[2].checkout);
+	var subTotal2 = arr[2] === '' ? 0 :parseFloat(arr[2].sellingRate)* parseFloat(arr[2].checkout);
 	var gstAmt2 = arr[2] === '' ? 0 :(parseFloat(arr[2].gst)/100)*subTotal2;
-	var subTotal3 =arr[3] === '' ? 0 : parseFloat(arr[3].rate)* parseFloat(arr[3].checkout);
+	var subTotal3 =arr[3] === '' ? 0 : parseFloat(arr[3].sellingRate)* parseFloat(arr[3].checkout);
 	var gstAmt3 = arr[3] === '' ? 0 :(parseFloat(arr[3].gst)/100)*subTotal3;
  
  return `
@@ -92,11 +92,11 @@ module.exports = (arr) => {
 				<td>${arr[0].hsn}</td>
 				<td>${arr[0].checkout}</td>
 				<td>${arr[0].uom}</td>
-				<td>${parseFloat(arr[0].rate)}</td>
+				<td>${parseFloat(arr[0].sellingRate)}</td>
 				<td>${subTotal0}</td>
 				<td>${arr[0].gst}</td>
 				<td>${gstAmt0}</td>
-				<td>${(parseFloat(arr[0].gst)/100)*(parseFloat(arr[0].rate)* parseFloat(arr[0].checkout))+ parseFloat(arr[0].rate)* parseFloat(arr[0].checkout)}</td>
+				<td>${(parseFloat(arr[0].gst)/100)*(parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout))+ parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout)}</td>
 			</tr>
 		<tr>
 			<td>${arr[1] === '' ? '' : 2}</td>
@@ -110,7 +110,7 @@ module.exports = (arr) => {
 			<td>${arr[1] === '' ? '' :arr[1].hsn}</td>
 			<td>${arr[1] === '' ? '' :arr[1].checkout}</td>
 			<td>${arr[1] === '' ? '' :arr[1].uom}</td>
-			<td>${arr[1] === '' ? '' :parseFloat(arr[1].rate)}</td>
+			<td>${arr[1] === '' ? '' :parseFloat(arr[1].sellingRate)}</td>
 			<td>${arr[1] === '' ? '' :subTotal1}</td>
 			<td>${arr[1] === '' ? '' :arr[1].gst}</td>
 			<td>${arr[1] === '' ? '' :gstAmt1}</td>
@@ -129,7 +129,7 @@ module.exports = (arr) => {
 			<td>${arr[2] === '' ? '' :arr[2].hsn}</td>
 			<td>${arr[2] === '' ? '' :arr[2].checkout}</td>
 			<td>${arr[2] === '' ? '' :arr[2].uom}</td>
-			<td>${arr[2] === '' ? '' :parseFloat(arr[2].rate)}</td>
+			<td>${arr[2] === '' ? '' :parseFloat(arr[2].sellingRate)}</td>
 			<td>${arr[2] === '' ? '' :subTotal2}</td>
 			<td>${arr[2] === '' ? '' :arr[2].gst}</td>
 			<td>${arr[2] === '' ? '' :gstAmt2}</td>
@@ -147,7 +147,7 @@ module.exports = (arr) => {
 		<td>${arr[3] === '' ? '' :arr[3].hsn}</td>
 		<td>${arr[3] === '' ? '' :arr[3].checkout}</td>
 		<td>${arr[3] === '' ? '' :arr[3].uom}</td>
-		<td>${arr[3] === '' ? '' :parseFloat(arr[3].rate)}</td>
+		<td>${arr[3] === '' ? '' :parseFloat(arr[3].sellingRate)}</td>
 		<td>${arr[3] === '' ? '' :subTotal3}</td>
 		<td>${arr[3] === '' ? '' :arr[3].gst}</td>
 		<td>${arr[3] === '' ? '' :gstAmt3}</td>

@@ -8,5 +8,8 @@ const SalesController = require('../controllers/sales')
 
 
 router.post('/', SalesController.sales_create_sales);
+router.get('/', SalesController.sales_get_sales);
+router.get('/gst/:gst_percent', SalesController.sales_get_sales_filter_gst)
+router.get('/date', SalesController.sales_get_sales_filter_date)
 
 module.exports = router;

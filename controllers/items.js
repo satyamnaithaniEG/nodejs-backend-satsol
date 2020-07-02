@@ -36,6 +36,7 @@ exports.items_get_all_item_name =  (req, res, next) => {
         hsn: req.body.hsn,
         gst: req.body.gst,
         uom: req.body.uom,
+        itemCode: req.body.itemCode
     });
     item.save()
     .then(result => {
@@ -48,7 +49,8 @@ exports.items_get_all_item_name =  (req, res, next) => {
                 name: result.name,
                 hsn: result.hsn,
                 gst: result.gst,
-                uom: result.uom       
+                uom: result.uom,
+                itemCode: result.itemCode       
             }
         })
     })
