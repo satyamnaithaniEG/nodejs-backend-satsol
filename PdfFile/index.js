@@ -19,8 +19,7 @@ module.exports = (arr) => {
 </head>
 <body>
 	<style type="text/css">
-	@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,) 400i, 600, 600i, 700;a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,sup,table,tbody,td,tfoot,th,thead,time,total,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{height:840px;width:650px;margin:auto;font-family:'Open Sans',sans-serif;font-size:12px}strong{font-weight:700}#container{position:relative;padding:.5%}#header{height:120px}#header>#reference{float:right;text-align:right}#header>#reference h3{margin:0}#header>#reference h4{margin:0;font-size:85%;font-weight:600}#header>#reference p{margin:0;margin-top:2%;font-size:85%}#header>#logo{width:50%;float:left}#fromto{height:120px}#fromto>#from,#fromto>#to{width:45%;min-height:90px;margin-top:10px;font-size:85%;padding:1.5%;line-height:120%}#fromto>#from{float:left;width:45%;background:#efefef;margin-top:10px;font-size:85%;padding:1.5%}#fromto>#to{float:right;border:solid grey 1px}#items{margin-top:10px}#items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#items>table{width:100%;font-size:85%;border:solid grey 1px}#items>table th:first-child{text-align:left}#items>table th{font-weight:400;padding:1px 4px}#items>table td{padding:1px 4px}#items>table th:nth-child(2){width:250px}#items>table tr td:not(:first-child){text-align:center;padding-right:1%}#items table td{border-right:solid grey 1px}#items table tr td{padding-top:3px;padding-bottom:3px;height:10px}#items table tr:nth-child(1){border:solid grey 1px}#items table tr th{border-right:solid grey 1px;padding:3px}#items table tr:nth-child(2)>td{padding-top:8px}#summary{height:170px;margin-top:30px}#summary #note{float:left;width:350px}#summary #note h4{font-size:10px;font-weight:600;font-style:italic;margin-bottom:4px}#summary #note p{font-size:10px;font-style:italic}#summary #total table{font-size:85%;width:260px;float:right}#summary #total table td{padding:3px 4px}#summary #total table tr td:last-child{text-align:right}#summary #total table tr:nth-child(3){background:#efefef;font-weight:600}#footer{margin:auto;position:absolute;left:4%;bottom:4%;right:4%;border-top:solid grey 1px}#footer p{margin-top:1%;font-size:65%;line-height:140%;text-align:center}</style>
-
+	@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,) 400i, 600, 600i, 700;a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,sup,table,tbody,td,tfoot,th,thead,time,total,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{height:840px;width:650px;margin:auto;font-family:'Open Sans',sans-serif;font-size:12px}strong{font-weight:700}#container{position:relative;padding:.5%}#header{height:120px}#header>#reference{float:right;text-align:right}#header>#reference h3{margin:0}#header>#reference h4{margin:0;font-size:85%;font-weight:600}#header>#reference p{margin:0;margin-top:2%;font-size:85%}#header>#logo{width:50%;float:left}#fromto{height:120px}#fromto>#from,#fromto>#to{width:45%;min-height:90px;margin-top:10px;font-size:85%;padding:1.5%;line-height:120%}#fromto>#from{float:left;width:45%;background:#efefef;margin-top:10px;font-size:85%;padding:1.5%}#fromto>#to{float:right;border:solid grey 1px}#items{margin-top:10px}#items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#items>table{width:100%;font-size:85%;border:solid grey 1px}#items>table th:first-child{text-align:left}#items>table th{font-weight:400;padding:1px 4px}#items>table td{padding:1px 4px}#items>table th:nth-child(2){width:250px}#items>table tr td:not(:first-child){text-align:center;padding-right:1%}#items table td{border-right:solid grey 1px}#items table tr td{padding-top:3px;padding-bottom:3px;height:10px}#items table tr:nth-child(1){border:solid grey 1px}#items table tr th{border-right:solid grey 1px;padding:3px}#items table tr:nth-child(2)>td{padding-top:8px}#summary{height:170px;margin-top:30px}#summary #note{float:left;width:350px}#summary #note h4{font-size:10px;font-weight:600;font-style:italic;margin-bottom:4px}#summary #note p{font-size:10px;font-style:italic}#summary #total table{font-size:85%;width:260px;float:right}#summary #total table td{padding:3px 4px}#summary #total table tr td:last-child{text-align:right}#summary #total table tr:nth-child(6){background:#efefef;font-weight:600}#footer{margin:auto;position:absolute;left:4%;bottom:4%;right:4%;border-top:solid grey 1px}#footer p{margin-top:1%;font-size:65%;line-height:140%;text-align:center}</style>
 <div id="container" style="margin-top: 10px;">
 	<div id="header">
 		<div id="logo">
@@ -35,36 +34,41 @@ module.exports = (arr) => {
 		</div>
 		<div id="reference">
 			<h3><strong>GST INVOICE</strong></h3>
-			<h4>Invoice No.: SS/20-21/009</h4>
-			<p>Date :  ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}</p>
+			<h4>Invoice No.: ${arr[11]}</h4>
+			<p>Date :  ${arr[20]}</p>
+			<p>Challan Date :  ${arr[12]}</p>
+			<p>Challan Number :  ${arr[21]}</p>
+			<p>Order Number :  ${arr[14]}</p>
 		</div>
 	</div>
-
 	<div id="fromto">
 		<div id="from">
 			<p>
 				Consignee: <br>
-				<strong>${arr[10]}</strong><br>
-				${arr[11]}<br>
-				${arr[12]}-${arr[13]} <br>
-				${arr[14]} <br><br>
-				GSTIN: ${arr[15]} <br>
+				<strong>${arr[10].name}</strong><br>
+				${arr[10].address}<br>
+				${arr[10].city}-${arr[10].zip} <br>
+				${arr[10].state} <br><br>
+				GSTIN: ${arr[10].gst} <br>
 			</p>
 		</div>
 		<div id="to">
 			<p>
 				<strong>Dispatch Through</strong><br>
-				UK06AE5004<br>
+				${arr[15]}<br>
 				<strong>Destination</strong><br>
-				Lucknow
+				${arr[16]}
 			</p>
 			<div id="pmnt">
 			    <strong>Mode/Terms of Payment</strong><br>
-				Against delivery
+				${arr[13]}
+			</div>
+			<div id="pmnt">
+			    <strong>Mode/Terms of Delivery</strong><br>
+				${arr[17]}
 			</div>
 		</div>
 	</div>
-
 	<div id="items">
 		<!-- <p>Montants exprimés en Euros</p> -->
 		<table>
@@ -116,7 +120,6 @@ module.exports = (arr) => {
 			<td>${arr[1] === '' ? '' :gstAmt1}</td>
 			<td>${arr[1] === '' ? '' :gstAmt1 + subTotal1}</td>
 		</tr>
-
 		<tr>
 			<td>${arr[2] === '' ? '' : 3}</td>
 			<td style="text-align: left">
@@ -347,7 +350,6 @@ module.exports = (arr) => {
 			</tr>
 		</table>
 	</div>
-
 	<div id="summary">
 		<div id="note">
 			<h4>Declaration :</h4>
@@ -362,6 +364,18 @@ module.exports = (arr) => {
 					<td>₹${subTotal0+subTotal1+subTotal2+subTotal3}</td>
 				</tr>
 				<tr>
+					<td>CGST</td>
+					<td>₹${arr[18]?'0':(gstAmt0+gstAmt1+gstAmt2+gstAmt3)/2}</td>
+				</tr>
+				<tr>
+					<td>SGST</td>
+					<td>₹${arr[18]?'0':(gstAmt0+gstAmt1+gstAmt2+gstAmt3)/2}</td>
+				</tr>
+				<tr>
+					<td>IGST</td>
+					<td>₹${arr[18]?gstAmt0+gstAmt1+gstAmt2+gstAmt3:'0'}</td>
+				</tr>
+				<tr>
 					<td>Total GST Amount</td>
 					<td>₹${gstAmt0+gstAmt1+gstAmt2+gstAmt3}</td>
 				</tr>
@@ -369,15 +383,16 @@ module.exports = (arr) => {
 					<td>Grand Total</td>
 					<td>₹${subTotal0+subTotal1+subTotal2+subTotal3+gstAmt0+gstAmt1+gstAmt2+gstAmt3}</td>
 				</tr>
+				<tr>
+					<td>${arr[19]}</td>
+				</tr>
 			</table>
 		</div>
 	</div>
-
 	<div id="footer">
 		<p>Subject to Lucknow Jurisdiction</p>
 	</div>
 </div>
-
 </body>
 </html>
 	`;

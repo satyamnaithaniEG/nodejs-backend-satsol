@@ -4,14 +4,14 @@ const Purchase = require('../models/purchase');
 
 
 exports.purchase_get_all_item = (req, res, next) => {
-    Stock.find()
+    Purchase.find()
         .exec()
-        .then(docs => {
+        .then(purchase => {
             const response = {
-                count: docs.length,
-                items: docs.map(doc => {
+                count: purchase.length,
+                purchase: purchase.map(doc => {
                     return {
-                        data: doc
+                        doc
                     }
                 })
             }
@@ -27,7 +27,7 @@ exports.purchase_get_all_item = (req, res, next) => {
         })
 }
 
-
+// creating purchase is auotomatically done when entering stock details. method invoked in stock.js post file.
 exports.purchase_create_purchase = (req, res, next) => {
 
     const purchase = new Purchase({
@@ -61,4 +61,36 @@ exports.purchase_create_purchase = (req, res, next) => {
             console.log(err);
             res.status(500).json({ error: err });
         });
+}
+
+exports.purchase_get_total_purchase_amount = (req, res, next) => {
+    Purchase.find()
+        .exec()
+        .then(docs => {
+            var totalPrice = 0,
+                totalRate = 0,
+                totalGst = 0
+            for(var i=0; i< docs.length;i++) {
+               totalRate= totalRate + docs[i].purchaseRate*docs[i].quantity;
+               totalGst= totalGst + docs[i].purchaseRate*(docs[i].gst/100)*docs[i].quantity;
+               totalPrice = totalGst + totalRate
+               console.log(docs[i].purchaseRate)
+            }
+            console.log(parseFloat(totalPrice))
+            const response = {
+                count: docs.length,
+                rate: totalRate,
+                gst: totalGst,
+                total: totalPrice,
+            }
+            res.status(200).json(response)
+
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({
+                error: err
+            })
+
+        })
 }
