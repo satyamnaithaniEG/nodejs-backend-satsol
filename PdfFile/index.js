@@ -19,7 +19,7 @@ module.exports = (arr) => {
 </head>
 <body>
 	<style type="text/css">
-	@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,) 400i, 600, 600i, 700;a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,sup,table,tbody,td,tfoot,th,thead,time,total,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{height:840px;width:650px;margin:auto;font-family:'Open Sans',sans-serif;font-size:12px}strong{font-weight:700}#container{position:relative;padding:.5%}#header{height:120px}#header>#reference{float:right;text-align:right}#header>#reference h3{margin:0}#header>#reference h4{margin:0;font-size:85%;font-weight:600}#header>#reference p{margin:0;margin-top:2%;font-size:85%}#header>#logo{width:50%;float:left}#fromto{height:120px}#fromto>#from,#fromto>#to{width:45%;min-height:90px;margin-top:10px;font-size:85%;padding:1.5%;line-height:120%}#fromto>#from{float:left;width:45%;background:#efefef;margin-top:10px;font-size:85%;padding:1.5%}#fromto>#to{float:right;border:solid grey 1px}#items{margin-top:10px}#items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#items>table{width:100%;font-size:85%;border:solid grey 1px}#items>table th:first-child{text-align:left}#items>table th{font-weight:400;padding:1px 4px}#items>table td{padding:1px 4px}#items>table th:nth-child(2){width:250px}#items>table tr td:not(:first-child){text-align:center;padding-right:1%}#items table td{border-right:solid grey 1px}#items table tr td{padding-top:3px;padding-bottom:3px;height:10px}#items table tr:nth-child(1){border:solid grey 1px}#items table tr th{border-right:solid grey 1px;padding:3px}#items table tr:nth-child(2)>td{padding-top:8px}#summary{height:170px;margin-top:30px}#summary #note{float:left;width:350px}#summary #note h4{font-size:10px;font-weight:600;font-style:italic;margin-bottom:4px}#summary #note p{font-size:10px;font-style:italic}#summary #total table{font-size:85%;width:260px;float:right}#summary #total table td{padding:3px 4px}#summary #total table tr td:last-child{text-align:right}#summary #total table tr:nth-child(6){background:#efefef;font-weight:600}#footer{margin:auto;position:absolute;left:4%;bottom:4%;right:4%;border-top:solid grey 1px}#footer p{margin-top:1%;font-size:65%;line-height:140%;text-align:center}</style>
+	@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,) 400i, 600, 600i, 700;a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,sup,table,tbody,td,tfoot,th,thead,time,total,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}body{height:840px;width:650px;margin:auto;font-family:'Open Sans',sans-serif;font-size:12px}strong{font-weight:700}#container{position:relative;padding:.5%}#header{height:120px}#header>#reference{float:right;text-align:right}#header>#reference h3{margin:0}#header>#reference h4{margin:0;font-size:85%;font-weight:600}#header>#reference p{margin:0;margin-top:2%;font-size:85%}#header>#logo{width:50%;float:left}#fromto{height:120px}#fromto>#from,#fromto>#to{width:45%;min-height:90px;margin-top:10px;font-size:85%;padding:1.5%;line-height:120%}#fromto>#from{float:left;width:45%;background:#efefef;margin-top:10px;font-size:85%;padding:1.5%}#fromto>#to{float:right;border:solid grey 1px}#items{margin-top:10px}#items>p{font-weight:700;text-align:right;margin-bottom:1%;font-size:65%}#items>table{width:100%;font-size:85%;border:solid grey 1px}#items>table th:first-child{text-align:left}#items>table th{font-weight:400;padding:1px 4px}#items>table td{padding:1px 4px}#items>table th:nth-child(3){width:250px}#items>table tr td:not(:first-child){text-align:center;padding-right:1%}#items table td{border-right:solid grey 1px}#items table tr td{padding-top:3px;padding-bottom:3px;height:10px}#items table tr:nth-child(1){border:solid grey 1px}#items table tr th{border-right:solid grey 1px;padding:3px}#items table tr:nth-child(2)>td{padding-top:8px}#summary{height:170px;margin-top:30px}#summary #note{float:left;width:350px}#summary #note h4{font-size:10px;font-weight:600;font-style:italic;margin-bottom:4px}#summary #note p{font-size:10px;font-style:italic}#summary #total table{font-size:85%;width:260px;float:right}#summary #total table td{padding:3px 4px}#summary #total table tr td:last-child{text-align:right}#summary #total table tr:nth-child(6){background:#efefef;font-weight:600}#footer{margin:auto;position:absolute;left:4%;bottom:4%;right:4%;border-top:solid grey 1px}#footer p{margin-top:1%;font-size:65%;line-height:140%;text-align:center}</style>
 <div id="container" style="margin-top: 10px;">
 	<div id="header">
 		<div id="logo">
@@ -74,18 +74,20 @@ module.exports = (arr) => {
 		<table>
 			<tr>
 				<th>SL</th>
+				<th>Item Code</th>
 				<th>Description of Goods</th>
 				<th>HSN</th>
 				<th>QTY</th>
 				<th>UOM</th>
 				<th>RATE INR</th>
 				<th>SUB TOTAL</th>
-				<th>GST RATE %</th>
+				<th>GST%</th>
 				<th>GST VALUE</th>
 				<th>Amount INR</th>
 			</tr>
 			<tr>
 				<td>1</td>
+				<td>${arr[0].itemCode}</td>
 				<td style="text-align: left">
 					<strong>${arr[0].item}</strong><br>
 					<div style="font-size: 8px">
@@ -104,6 +106,7 @@ module.exports = (arr) => {
 			</tr>
 		<tr>
 			<td>${arr[1] === '' ? '' : 2}</td>
+			<td>${arr[1] === '' ? '' :arr[1].itemCode}</td>
 			<td style="text-align: left">
 				<strong>${arr[1] === '' ? '' :arr[1].item}</strong><br>
 				<div style="font-size: 8px">
@@ -122,6 +125,7 @@ module.exports = (arr) => {
 		</tr>
 		<tr>
 			<td>${arr[2] === '' ? '' : 3}</td>
+			<td>${arr[2] === '' ? '' :arr[2].itemCode}</td>
 			<td style="text-align: left">
 				<strong>${arr[2] === '' ? '' :arr[2].item}</strong><br>
 				<div style="font-size: 8px">
@@ -140,6 +144,7 @@ module.exports = (arr) => {
 		</tr>
 		<tr>
 		<td>${arr[3] === '' ? '' : 4}</td>
+		<td>${arr[3] === '' ? '' :arr[3].itemCode}</td>
 		<td style="text-align: left">
 			<strong>${arr[3] === '' ? '' :arr[3].item}</strong><br>
 			<div style="font-size: 8px">
@@ -167,32 +172,10 @@ module.exports = (arr) => {
 				<td></td>
 				<td></td>
 				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -215,32 +198,10 @@ module.exports = (arr) => {
 				<td></td>
 				<td></td>
 				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -263,32 +224,10 @@ module.exports = (arr) => {
 				<td></td>
 				<td></td>
 				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
 				<td></td>
 				<td></td>
 				<td></td>
@@ -311,17 +250,6 @@ module.exports = (arr) => {
 				<td></td>
 				<td></td>
 				<td></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
 				<td></td>
 			</tr>
 			<tr>
@@ -335,8 +263,101 @@ module.exports = (arr) => {
 				<td></td>
 				<td></td>
 				<td></td>
+				<td></td>
 			</tr>
 			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
