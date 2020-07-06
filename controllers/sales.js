@@ -109,15 +109,15 @@ exports.sales_get_sales =  (req, res, next) => {
   Sales.find()
     //.select()
     .exec()
-    .then(docs => {
-      const response = {
-          count: docs.length,
-          sales: docs.map(doc => {
-              return {
-                  doc: doc
-              }
-          })
-      }
+    .then(response => {
+      // const response = {
+      //     count: docs.length,
+      //     sales: docs.map(doc => {
+      //         return {
+      //              doc
+      //         }
+      //     })
+      // }
       res.status(200).json(response)
   
   })
@@ -174,5 +174,21 @@ exports.sales_get_sales_filter_date =  (req, res, next) => {
         })
   
     })
+}
+
+exports.sales_get_recent_sale = (req, res, next) => {
+  Sales.find().sort({_id: -1}).limit(1)
+  .exec()
+  .then(sale => {
+    res.status(200).json(sale)
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({
+        error:err
+    })
+
+})
+
 }
 

@@ -11,5 +11,6 @@ router.post('/', SalesController.sales_create_sales);
 router.get('/', SalesController.sales_get_sales);
 router.get('/gst/:gst_percent', SalesController.sales_get_sales_filter_gst)
 router.get('/date', SalesController.sales_get_sales_filter_date)
+router.get('/recent', SalesController.sales_get_recent_sale)
 
 module.exports = router;

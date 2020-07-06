@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const customerSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: { type: String },
-    code: { type: Number },
+    code: { type: String },
     address: { type: String},
     city: { type: String},
     state: { type: String},
