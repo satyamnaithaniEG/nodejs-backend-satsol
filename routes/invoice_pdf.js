@@ -12,7 +12,10 @@ var options = {
     width: "11in",
     height: "17in",
     border: {
-        top: "4cm",            // default is 0, units: mm, cm, in, px
+        top: "3cm",            // default is 0, units: mm, cm, in, px
+        right: "0.5cm",
+        bottom: "3cm",
+        left: "0.5cm"
       },
 };
 router.post('/create-pdf', (req, res) => {
