@@ -124,19 +124,20 @@ exports.sales_create_sales = async (req, res, next) => {
 }
 
 exports.sales_get_sales = (req, res, next) => {
+  global.count
+  Sales.count().exec().then(response=>global.count=response).catch(error=> res.status(500).json(error))
   Sales.find()
+  .sort({_id: -1})
+  .skip(parseInt(req.params.skip))
+  .limit(parseInt(req.params.limit))
     //.select()
     .exec()
     .then(response => {
-      // const response = {
-      //     count: docs.length,
-      //     sales: docs.map(doc => {
-      //         return {
-      //              doc
-      //         }
-      //     })
-      // }
-      res.status(200).json(response)
+      const result = {
+          count: global.count,
+          sales: response
+      }
+      res.status(200).json(result)
 
     })
     .catch(err => {
@@ -177,7 +178,7 @@ exports.sales_get_sales_filter_gst = (req, res, next) => {
 
 exports.sales_get_sales_filter_date = (req, res, next) => {
   Sales.find({
-    "date": { $gte: "2020-07-20", $lte: "2020-07-24" }
+    "date": { $gte: req.params.startDate, $lte: req.params.endDate }
   })
     //.select()
     .exec()
