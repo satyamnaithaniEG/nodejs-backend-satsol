@@ -15,6 +15,7 @@ const stockRoute = require('./routes/stock');
 const pdfInvoice = require('./routes/invoice_pdf');
 const salesRoute = require('./routes/sales')
 const purchaseRoute = require('./routes/purchase')
+const productsRoute =require('./routes/products')
 
 app.use(cors());
 
@@ -28,7 +29,7 @@ app.use(bodyParser.json());
 
 
 // Routes which handle requests 
-
+app.use('/products', productsRoute)
 app.use('/orders', orderRoutes);
 app.use('/user', userRoutes);
 app.use('/vendors', vendorRoutes);

@@ -16,8 +16,8 @@ exports.users_get_all =  (req, res, next) => {
                 return {
                     _id: doc._id,
                     email: doc.email,
-                    password: doc.password
-                    
+                    password: doc.password,
+                    name: doc.name  
                 }
             })
            
@@ -49,6 +49,7 @@ exports.users_signup_user =  (req, res, next) => {
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
+                            name: req.body.name,
                             password: hash
                         });
                         user.save()
@@ -85,14 +86,9 @@ exports.users_login_user = (req, res, next) => {
     User.find({ email: req.body.email })
     .exec()
     .then(
-        
         user => {
-            console.log(req.body.email)
-            console.log(req.body.password)
-            console.log(user[0].password)
-
             if(user.length < 1) {
-                return res.status(401).json({
+                return res.status(404).json({
                     message: 'Auth failed. No email  exist'
                 })
             }
@@ -103,8 +99,6 @@ exports.users_login_user = (req, res, next) => {
                         message: 'Auth failed'
                     })
                 }
-                console.log(result)
-                console.log(err)
                 if(result) {
 
                     const token = jwt.sign({
@@ -118,7 +112,8 @@ exports.users_login_user = (req, res, next) => {
 
                     return res.status(200).json({
                         message: 'Auth successful',
-                        token: token
+                        token: token,
+                        name:user[0].name
                     })
                 }
                 res.status(401).json({
