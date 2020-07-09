@@ -1,13 +1,27 @@
 const jwt = require('jsonwebtoken') 
- 
+const BlacklistedTokens = require('../models/blacklistedTokens')
  
  module.exports = (req, res, next) => {
-     console.log(req)
-     try{
-         const token = req.headers.authorization.split(" ")[1];
-        const decoded = jwt.verify(token, process.env.JWT_KEY);
-        req.userData = decoded;
-        next();
+     try{ 
+         
+        const token = req.headers.authorization.split(" ")[1];
+      BlacklistedTokens.find({token: token}).count().then(
+          res=> {
+              if(res === 0)
+              {
+                const decoded = jwt.verify(token, process.env.JWT_KEY);
+                req.userData = decoded;
+                next();
+              }
+          }
+          )
+      .catch(err=> console.log({
+          message: 'blacklistedtoken database error',
+          error: err
+      }));
+
+     
+        
      } catch (error) {
          return res.status(401).json({
              message: 'Auth failed',
@@ -15,7 +29,7 @@ const jwt = require('jsonwebtoken')
              error: error
 
          })
-     }
-     
-    
+     }  
  }
+
+   

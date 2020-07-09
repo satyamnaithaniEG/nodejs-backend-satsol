@@ -16,6 +16,7 @@ const pdfInvoice = require('./routes/invoice_pdf');
 const salesRoute = require('./routes/sales')
 const purchaseRoute = require('./routes/purchase')
 const productsRoute =require('./routes/products')
+const logoutRoute = require('./routes/logout-auth')
 
 app.use(cors());
 
@@ -39,6 +40,7 @@ app.use('/stock', stockRoute);
 app.use('/pdf', pdfInvoice);
 app.use('/sales', salesRoute)
 app.use('/purchase', purchaseRoute)
+app.use('/logout', logoutRoute)
 
 
 app.use((req, res, next) => {
