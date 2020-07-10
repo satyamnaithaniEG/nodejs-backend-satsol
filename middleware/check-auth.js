@@ -15,10 +15,11 @@ const BlacklistedTokens = require('../models/blacklistedTokens')
               }
           }
           )
-      .catch(err=> console.log({
+      .catch(err=> {  
+        console.log({
           message: 'blacklistedtoken database error',
-          error: err
-      }));
+          error: err})
+        });
 
      
         

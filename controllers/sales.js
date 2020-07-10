@@ -180,7 +180,6 @@ exports.sales_get_sales_filter_date = (req, res, next) => {
   Sales.find({
     "date": { $gte: req.params.startDate, $lte: req.params.endDate }
   })
-    //.select()
     .exec()
     .then(docs => {
 
@@ -212,37 +211,32 @@ exports.sales_get_recent_sale = (req, res, next) => {
 
 }
 
-exports.sales_get_total_sale_amount = (req, res, next) => {
-  Sales.find()
-    .sort({ date: -1 })
+exports.sales_get_monthly_sale_details = (req, res, next) => {
+  var date = new Date()
+  var dateOnMonthStart = date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
+  console.log(date)
+  console.log(dateOnMonthStart)
+  Sales.find({
+   "date": { $gte: dateOnMonthStart, $lte: date }
+  })
       .exec()
       .then(docs => {
-        // var totalPrice = 0,
-        //     totalRate = 0,
-        //     totalGst = 0
-        // for(var i=0; i< docs.length;i++) {
-        //    totalRate= totalRate + docs[i].purchaseRate*docs[i].quantity;
-        //    totalGst= totalGst + docs[i].purchaseRate*(docs[i].gst/100)*docs[i].quantity;
-        //    totalPrice = totalGst + totalRate
-        //    console.log(docs[i].purchaseRate)
-        // }
-        // //console.log(parseFloat(totalPrice))
-        // const response = {
-        //     count: docs.length,
-        //     rate: totalRate,
-        //     gst: totalGst,
-        //     total: totalPrice,
-        // }
-        const doc = {
-          doc: docs.map(doc => {
-            return {
-              date: doc.date
-            }
-
-          })
+        var totalPrice = 0,
+            totalRate = 0,
+            totalGst = 0
+        for(var i=0; i< docs.length;i++) {
+           totalRate= totalRate + docs[i].totalRate;
+           totalGst= totalGst + docs[i].totalGst;
+           totalPrice = totalGst + totalRate
         }
-        res.status(200).json(doc)
-
+        const response = {
+            count: docs.length,
+            rate: parseFloat(totalRate.toFixed(2)),
+            gst: parseFloat(totalGst.toFixed(2)),
+            total: parseFloat(totalPrice.toFixed(2)),
+            grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
+        }
+        res.status(200).json(response)
       })
       .catch(err => {
         console.log(err);
