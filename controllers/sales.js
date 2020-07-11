@@ -246,3 +246,64 @@ exports.sales_get_monthly_sale_details = (req, res, next) => {
       })
 }
 
+
+exports.sales_get_monthly_sale_details_chart = (req, res, next) => {
+  var date = new Date()
+  var dateOnMonthStart = date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
+  Sales.find({
+    "date": { $gte: dateOnMonthStart, $lte: date }
+   })
+  .sort({date: 1})
+      .exec()
+      .then(docs => {
+        const response = {
+         sale: docs.map(data=> {
+          const date = data.date === null? '': data.date.toISOString().split('-')[2].split('T')[0] + '/'+data.date.toISOString().split('-')[1]
+           return {
+             time: date,
+             amount: data.grandTotal
+           }
+         }
+          
+         )
+        }
+        res.status(200).json(response)
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        })
+
+      })
+}
+exports.sales_get_monthly_sale_details_hospital_chart = (req, res, next) => {
+  var date = new Date()
+  var dateOnMonthStart = date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
+  Sales.find({
+    "date": { $gte: dateOnMonthStart, $lte: date }
+   })
+  .sort({date: 1})
+      .exec()
+      .then(docs => {
+        const response = {
+         sale: docs.map(data=> {
+           return {
+             time: data.customerName,
+             amount: data.grandTotal
+           }
+         }
+          
+         )
+        }
+        res.status(200).json(response)
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        })
+
+      })
+}
+
