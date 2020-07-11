@@ -26,12 +26,17 @@ exports.vendors_get_all_vendor_name =  (req, res, next) => {
 }
 
 
-  exports.vendors_create_vendor =  (req, res, next) => {
-
+  exports.vendors_create_vendor =  async (req, res, next) => {
+    global.count;
+    await Vendor.find().countDocuments().exec().then(res => { global.count = ++res });
     const vendor = new Vendor({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        code: req.body.code,
+        code: global.count < 10 ?
+        'VR00' + global.count
+        : global.count >= 10 && global.count <= 99 ?
+          'VR0' + global.count
+          : 'VR' + global.count,
         address: req.body.address,
         city: req.body.city,
         state: req.body.state,
@@ -39,9 +44,10 @@ exports.vendors_get_all_vendor_name =  (req, res, next) => {
         gst: req.body.gst,
         dl: req.body.dl,
         contact: req.body.contact,
-        person: req.body.person
+        person: req.body.person,
+        addedBy: req.body.addedBy
     });
-    vendor.save()
+    await vendor.save()
     .then(result => {
         console.log(result);
         res.status(201).json({
@@ -57,7 +63,8 @@ exports.vendors_get_all_vendor_name =  (req, res, next) => {
                 gst: result.gst,
                 dl: result.gst,
                 contact: result.contact,
-                person: result.person
+                person: result.person,
+                addedBy: result.addedBy
                 
             }
         })

@@ -69,7 +69,8 @@ exports.stock_add_item =  async (req, res, next) => {
                           billDate: req.body.billDate,
                           uom: req.body.uom,
                           hsn: req.body.hsn,
-                          itemCode: req.body.itemCode
+                          itemCode: req.body.itemCode,
+                          addedBy: req.body.addedBy
                       });
                       return stock.save()
                       .then(result => {

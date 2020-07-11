@@ -29,12 +29,18 @@ exports.customers_get_all_customers= (req, res, next) => {
 }
 
 
-  exports.customers_create_customers =  (req, res, next) => {
+  exports.customers_create_customers = async (req, res, next) => {
+    global.count;
+    await Customer.find().countDocuments().exec().then(res => { global.count = ++res });
 
     const customer = new Customer({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        code: req.body.code,
+        code: global.count < 10 ?
+        'CR00' + global.count
+        : global.count >= 10 && global.count <= 99 ?
+          'CR0' + global.count
+          : 'CR' + global.count,
         address: req.body.address,
         city: req.body.city,
         state: req.body.state,
@@ -42,9 +48,10 @@ exports.customers_get_all_customers= (req, res, next) => {
         gst: req.body.gst,
         dl: req.body.dl,
         contact: req.body.contact,
-        person: req.body.person
+        person: req.body.person,
+        addedBy: req.body.addedBy
     });
-    customer.save()
+    await customer.save()
     .then(result => {
         console.log(result);
         res.status(201).json({
@@ -60,7 +67,8 @@ exports.customers_get_all_customers= (req, res, next) => {
                 gst: result.gst,
                 dl: result.gst,
                 contact: result.contact,
-                person: result.person
+                person: result.person,
+                addedBy: result.addedBy
                 
             }
         })

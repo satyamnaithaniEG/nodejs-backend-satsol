@@ -15,7 +15,8 @@ const purchaseSchema = mongoose.Schema({
     billDate: {type: Date},
     uom: {type: String},
     hsn: {type: String},
-    itemCode: {type: String}
+    itemCode: {type: String},
+    addedBy: {type: String}
 });
 
 module.exports = mongoose.model('Purchase', purchaseSchema);

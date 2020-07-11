@@ -45,7 +45,8 @@ exports.purchase_create_purchase = (req, res, next) => {
         billDate: req.body.billDate,
         uom: req.body.uom,
         hsn: req.body.hsn,
-        itemCode: req.body.itemCode
+        itemCode: req.body.itemCode,
+        addedBy: req.body.addedBy
     });
     purchase.save()
         .then(result => {
@@ -74,9 +75,7 @@ exports.purchase_get_total_purchase_amount = (req, res, next) => {
                totalRate= totalRate + docs[i].purchaseRate*docs[i].quantity;
                totalGst= totalGst + docs[i].purchaseRate*(docs[i].gst/100)*docs[i].quantity;
                totalPrice = totalGst + totalRate
-               console.log(docs[i].purchaseRate)
             }
-            console.log(parseFloat(totalPrice))
             const response = {
                 count: docs.length,
                 rate: totalRate,

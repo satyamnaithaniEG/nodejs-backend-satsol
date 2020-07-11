@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 exports.items_get_all_item_name =  (req, res, next) => {
     Item.find()
-    .select('name')
+    //.select('name')
     .exec()
     .then(docs => {
         res.status(200).json({
@@ -27,8 +27,31 @@ exports.items_get_all_item_name =  (req, res, next) => {
 }
 
 
-  exports.items_create_item =  (req, res, next) => {
-
+  exports.items_create_item =  async (req, res, next) => {
+    global.count;
+    global.itemCode;
+    await Item.find({catogory: req.body.catogory}).countDocuments().exec().then(res => { global.count = ++res });
+    if(req.body.catogory === 'Medical Equipment'){
+       global.itemCode =  global.count < 10 ?
+        'ME00' + global.count
+        : global.count >= 10 && global.count <= 99 ?
+          'ME0' + global.count
+          : 'ME' + global.count
+    }else if(req.body.catogory === 'Spears'){
+        global.itemCode = global.count < 10 ?
+        'SP00' + global.count
+        : global.count >= 10 && global.count <= 99 ?
+          'SP0' + global.count
+          : 'SP' + global.count
+    }else if(req.body.catogory === 'Consumables'){
+        global.itemCode = global.count < 10 ?
+        'CM00' + global.count
+        : global.count >= 10 && global.count <= 99 ?
+          'CM0' + global.count
+          : 'CM' + global.count
+    }else {
+        res.status(500).json('Catogory Not Found!')
+    }
     const item = new Item({
         _id: new mongoose.Types.ObjectId(),
         catogory: req.body.catogory,
@@ -36,9 +59,10 @@ exports.items_get_all_item_name =  (req, res, next) => {
         hsn: req.body.hsn,
         gst: req.body.gst,
         uom: req.body.uom,
-        itemCode: req.body.itemCode
+        itemCode: global.itemCode,
+        addedBy: req.body.addedBy
     });
-    item.save()
+    await item.save()
     .then(result => {
         console.log(result);
         res.status(201).json({
@@ -50,7 +74,8 @@ exports.items_get_all_item_name =  (req, res, next) => {
                 hsn: result.hsn,
                 gst: result.gst,
                 uom: result.uom,
-                itemCode: result.itemCode       
+                itemCode: result.itemCode,
+                addedBy: result.addedBy
             }
         })
     })

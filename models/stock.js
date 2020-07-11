@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const stockSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    //itemId: { type: mongoose.Schema.Types.ObjectId, ref: 'Item', required: true},
     item: { type: String },
     lotNo: { type: String },
     billNo: { type: String },
@@ -17,7 +16,8 @@ const stockSchema = mongoose.Schema({
     billDate: {type: Date},
     uom: {type: String},
     hsn: {type: String},
-    itemCode: {type: String}
+    itemCode: {type: String},
+    addedBy: {type: String}
 });
 
 module.exports = mongoose.model('Stock', stockSchema);

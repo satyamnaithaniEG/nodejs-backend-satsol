@@ -5,7 +5,7 @@ const BlacklistedTokens = require('../models/blacklistedTokens')
      try{ 
          
         const token = req.headers.authorization.split(" ")[1];
-      BlacklistedTokens.find({token: token}).count().then(
+      BlacklistedTokens.find({token: token}).countDocuments().then(
           res=> {
               if(res === 0)
               {

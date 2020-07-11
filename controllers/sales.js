@@ -26,7 +26,7 @@ exports.sales_create_sales = async (req, res, next) => {
       totalGst = parseFloat(totalGst + data.sellingRate * (data.gst / 100) * data.checkout)
     })
     global.count;
-    await Sales.find().count().exec().then(res => { global.count = ++res });
+    await Sales.find().countDocuments().exec().then(res => { global.count = ++res });
 
     const sales = new Sales({
 
@@ -51,7 +51,8 @@ exports.sales_create_sales = async (req, res, next) => {
       destination: req.body.destination,
       termsOfDelivery: req.body.termsOfDelivery,
       interState: req.body.interState,
-      grandTotalInWords: toWords.convert(totalRate + totalGst)
+      grandTotalInWords: toWords.convert(totalRate + totalGst),
+      addedBy: req.body.addedBy
     });
     global.stockQuantity
     const data = req.body.orderData

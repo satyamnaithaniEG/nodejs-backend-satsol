@@ -7,7 +7,8 @@ const itemSchema = mongoose.Schema({
     hsn: { type: String },
     gst: {type: String},
     uom: {type: String},
-    itemCode: {type: String}
+    itemCode: {type: String},
+    addedBy: {type: String}
 });
 
 module.exports = mongoose.model('Item', itemSchema)

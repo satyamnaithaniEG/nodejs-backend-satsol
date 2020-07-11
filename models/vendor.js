@@ -12,6 +12,7 @@ const vendorSchema = mongoose.Schema({
     dl: { type: String},
     contact: { type: String},
     person: { type: String},
+    addedBy: {type: String}
 });
 
 module.exports = mongoose.model('Vendor', vendorSchema)
