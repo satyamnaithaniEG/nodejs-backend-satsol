@@ -92,7 +92,7 @@ module.exports = (arr) => {
 					<strong>${arr[0].item}</strong><br>
 					<div style="font-size: 8px">
 				    Batch: ${arr[0].lotNo}<br>
-					Expiry: ${arr[0].exp}
+					Expiry: ${arr[0].exp=== null?'':arr[0].exp.split('T')[0].split('-')[2] + '-' + arr[0].exp.split('T')[0].split('-')[1] + '-' + arr[0].exp.split('T')[0].split('-')[0]}
 					</div>
 				</td>
 				<td>${arr[0].hsn}</td>
@@ -111,7 +111,7 @@ module.exports = (arr) => {
 				<strong>${arr[1] === '' ? '' :arr[1].item}</strong><br>
 				<div style="font-size: 8px">
 				${arr[1] === '' ? '' :'Batch:' + arr[1].lotNo}<br>
-				${arr[1] === '' ? '' :'Expiry:' + arr[1].exp}
+				${arr[1].exp === null||arr[1].exp === undefined ? '' :'Expiry:' + arr[1].exp.split('T')[0].split('-')[2] + '-' + arr[1].exp.split('T')[0].split('-')[1] + '-' + arr[1].exp.split('T')[0].split('-')[0]}
 				</div>
 			</td>
 			<td>${arr[1] === '' ? '' :arr[1].hsn}</td>
@@ -130,7 +130,7 @@ module.exports = (arr) => {
 				<strong>${arr[2] === '' ? '' :arr[2].item}</strong><br>
 				<div style="font-size: 8px">
 				${arr[2] === '' ? '' :'Batch:' + arr[2].lotNo}<br>
-				${arr[2] === '' ? '' :'Expiry:' + arr[2].exp}
+				${arr[2].exp === undefined || arr[2].exp === undefined ? '' :'Expiry:' + arr[2].exp.split('T')[0].split('-')[2] + '-' + arr[2].exp.split('T')[0].split('-')[1] + '-' + arr[2].exp.split('T')[0].split('-')[0]}
 				</div>
 			</td>
 			<td>${arr[2] === '' ? '' :arr[2].hsn}</td>
@@ -149,7 +149,7 @@ module.exports = (arr) => {
 			<strong>${arr[3] === '' ? '' :arr[3].item}</strong><br>
 			<div style="font-size: 8px">
 			${arr[3] === '' ? '' :'Batch:' + arr[3].lotNo}<br>
-			${arr[3] === '' ? '' :'Expiry:' + arr[3].exp}
+			${arr[3].exp === null || arr[3].exp === undefined ? '' :'Expiry:' + arr[3].exp.split('T')[0].split('-')[2] + '-' + arr[3].exp.split('T')[0].split('-')[1] + '-' + arr[3].exp.split('T')[0].split('-')[0]}
 			</div>
 		</td>
 		<td>${arr[3] === '' ? '' :arr[3].hsn}</td>
@@ -372,12 +372,20 @@ module.exports = (arr) => {
 		</table>
 	</div>
 	<div id="summary">
-		<div id="note">
-			<h4>Declaration :</h4>
-			<p>We declare that this invoice shows the actual price of the goods described and all particulars are true and correct.</p>
-			<p>1. Any claim by the purchaser which is based on a pre dispatcch defects shall be notified within 7 days from the date of the sale.</p>
-			<p>2. Interest @24% will be charged in delay payments.</p>
+	    <div id="note">
+		    <br/>
+			<h4>Amount Chargeable(in words) :</h4>
+			<p>${arr[19]}</p>
 		</div>
+		<div id="note">
+		    <br/>
+			<h4>Company's Bank Details:</h4>
+			<p>Bank Name     :Indian Bank  </p>
+			<p>Account Number:6759192854</p>
+			<p>Branch        : Indira Nagar,Lucknow -226016  </p>
+			<p>IFSC Code     : IDIB0001012  </p>
+		</div>
+		
 		<div id="total">
 			<table border="1">
 				<tr>
@@ -404,12 +412,39 @@ module.exports = (arr) => {
 					<td>Grand Total</td>
 					<td>₹${subTotal0+subTotal1+subTotal2+subTotal3+gstAmt0+gstAmt1+gstAmt2+gstAmt3}</td>
 				</tr>
-				<tr>
-					<td>${arr[19]}</td>
-				</tr>
 			</table>
 		</div>
+		<div style= 'position:absolute;
+		bottom:90px;
+		right:60px;
+		text-align:center'>
+		<p>For SATVIK SOLUTIONS</p>
+	        
+	          <br/>
+	          <br/>
+	          <br/>
+		<p>Authorised Signatory</p>
+		</div>
+		<div id="note">
+		<br/>
+			<h4>Declaration :</h4>
+			<p>We declare that this invoice shows the actual price of the goods described and all particulars are true and correct.</p>
+			<p>1. Any claim by the purchaser which is based on a pre dispatcch defects shall be notified within 7 days from the date of the sale.</p>
+			<p>2. Interest @24% will be charged in delay payments.</p>
+		</div>
 	</div>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
+	<br/>
 	<div id="footer">
 		<p>Subject to Lucknow Jurisdiction</p>
 	</div>

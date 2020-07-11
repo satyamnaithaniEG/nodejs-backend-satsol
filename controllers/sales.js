@@ -215,8 +215,6 @@ exports.sales_get_recent_sale = (req, res, next) => {
 exports.sales_get_monthly_sale_details = (req, res, next) => {
   var date = new Date()
   var dateOnMonthStart = date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
-  console.log(date)
-  console.log(dateOnMonthStart)
   Sales.find({
    "date": { $gte: dateOnMonthStart, $lte: date }
   })
