@@ -78,9 +78,9 @@ exports.purchase_get_total_purchase_amount = (req, res, next) => {
             }
             const response = {
                 count: docs.length,
-                rate: totalRate,
-                gst: totalGst,
-                total: totalPrice,
+                rate: totalRate.toFixed(2),
+                gst: totalGst.toFixed(2),
+                total: totalPrice.toFixed(2),
             }
             res.status(200).json(response)
 
