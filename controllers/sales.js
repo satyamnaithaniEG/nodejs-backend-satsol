@@ -279,15 +279,49 @@ exports.sales_get_monthly_sale_details = (req, res, next) => {
 
       })
 }
+exports.sales_get_quarterly_sale_details = (req, res, next) => {
+  var date = new Date()
+  var quarterly_month = date.toISOString().split('-')[1] <= 9?'0'+(date.toISOString().split('-')[1]-3):date.toISOString().split('-')[1]-3
+  var quarterlyDate = new Date(date.toISOString().split('-')[0]+'-'+quarterly_month+'-'+ '01' +'T'+ '00:00:00.000Z')
+  Sales.find({
+   "date": { $gte: quarterlyDate, $lte: date }
+  })
+      .exec()
+      .then(docs => {
+        var totalPrice = 0,
+            totalRate = 0,
+            totalGst = 0
+        for(var i=0; i< docs.length;i++) {
+           totalRate= totalRate + docs[i].totalRate;
+           totalGst= totalGst + docs[i].totalGst;
+           totalPrice = totalGst + totalRate
+        }
+        
+        const response = {
+            count: docs.length,
+            rate: parseFloat(totalRate.toFixed(2)),
+            gst: parseFloat(totalGst.toFixed(2)),
+            total: parseFloat(totalPrice.toFixed(2)),
+            quarterlyMonthStartDate: quarterlyDate.toDateString(),
+            grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
+        }
+        res.status(200).json(response)
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        })
+
+      })
+}
 
 exports.sales_get_last_month_sale_details = (req, res, next) => {
   var date = new Date() 
   var dateOnMonthStart = new Date(date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z')
   var lastDateOfPreviousMonth = dateOnMonthStart
   lastDateOfPreviousMonth.setDate(lastDateOfPreviousMonth.getDate() - 1);
-  console.log(lastDateOfPreviousMonth)
   var dateOnPreviousMonthStart = lastDateOfPreviousMonth.toISOString().split('-')[0] +'-'+ lastDateOfPreviousMonth.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
-  console.log(dateOnPreviousMonthStart)
   Sales.find({
    "date": { $gte: dateOnPreviousMonthStart, $lte: lastDateOfPreviousMonth }
   })
@@ -356,9 +390,7 @@ exports.sales_get_previous_month_sale_details_chart = (req, res, next) => {
   var dateOnMonthStart = new Date(date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z')
   var lastDateOfPreviousMonth = dateOnMonthStart
   lastDateOfPreviousMonth.setDate(lastDateOfPreviousMonth.getDate() - 1);
-  console.log(lastDateOfPreviousMonth.toDateString().split(' ')[1])
   var dateOnPreviousMonthStart = lastDateOfPreviousMonth.toISOString().split('-')[0] +'-'+ lastDateOfPreviousMonth.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
-  console.log(dateOnPreviousMonthStart)
   Sales.find({
     "date": { $gte: dateOnPreviousMonthStart, $lte: lastDateOfPreviousMonth }
    })

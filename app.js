@@ -17,7 +17,7 @@ const salesRoute = require('./routes/sales')
 const purchaseRoute = require('./routes/purchase')
 const productsRoute =require('./routes/products')
 const logoutRoute = require('./routes/logout-auth')
-
+const expenseRoute = require('./routes/expenses')
 app.use(cors());
 
 mongoose.connect('mongodb+srv://satsol:' + process.env.MONGO_ATLAS_PW + '@cluster0-wmljt.mongodb.net/test?retryWrites=true&w=majority');
@@ -41,7 +41,7 @@ app.use('/pdf', pdfInvoice);
 app.use('/sales', salesRoute)
 app.use('/purchase', purchaseRoute)
 app.use('/logout', logoutRoute)
-
+app.use('/expense', expenseRoute)
 
 app.use((req, res, next) => {
     const error = new Error('Not Found');
