@@ -1,14 +1,14 @@
 module.exports = (arr) => {
 	const today = new Date();
 
-	var subTotal0 = arr[0] === '' ? 0 :parseFloat(parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout)).toFixed(2);
-	var gstAmt0 = arr[0] === '' ? 0 :(parseFloat((arr[0].gst)/100)*subTotal0).toFixed(2);
-	var subTotal1 = arr[1] === '' ? 0 :parseFloat(parseFloat(arr[1].sellingRate)* parseFloat(arr[1].checkout)).toFixed(2);
-	var gstAmt1 = arr[1] === '' ? 0 :(parseFloat((arr[1].gst)/100)*subTotal1).toFixed(2);
-	var subTotal2 = arr[2] === '' ? 0 :parseFloat(parseFloat(arr[2].sellingRate)* parseFloat(arr[2].checkout)).toFixed(2);
-	var gstAmt2 = arr[2] === '' ? 0 :(parseFloat((arr[2].gst)/100)*subTotal2).toFixed(2);
-	var subTotal3 =arr[3] === '' ? 0 : parseFloat(parseFloat(arr[3].sellingRate)* parseFloat(arr[3].checkout)).toFixed(2);
-	var gstAmt3 = arr[3] === '' ? 0 :(parseFloat((arr[3].gst)/100)*subTotal3).toFixed(2);
+	var subTotal0 = arr[0] === '' ? 0 :parseFloat(parseFloat(parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout)).toFixed(2));
+	var gstAmt0 = arr[0] === '' ? 0 :parseFloat((parseFloat((arr[0].gst)/100)*subTotal0).toFixed(2));
+	var subTotal1 = arr[1] === '' ? 0 :parseFloat(parseFloat(parseFloat(arr[1].sellingRate)* parseFloat(arr[1].checkout)).toFixed(2));
+	var gstAmt1 = arr[1] === '' ? 0 :parseFloat((parseFloat((arr[1].gst)/100)*subTotal1).toFixed(2));
+	var subTotal2 = arr[2] === '' ? 0 :parseFloat(parseFloat(parseFloat(arr[2].sellingRate)* parseFloat(arr[2].checkout)).toFixed(2));
+	var gstAmt2 = arr[2] === '' ? 0 :parseFloat((parseFloat((arr[2].gst)/100)*subTotal2).toFixed(2));
+	var subTotal3 =arr[3] === '' ? 0 : parseFloat(parseFloat(parseFloat(arr[3].sellingRate)* parseFloat(arr[3].checkout)).toFixed(2));
+	var gstAmt3 = arr[3] === '' ? 0 :parseFloat((parseFloat((arr[3].gst)/100)*subTotal3).toFixed(2));
 	var totalGst = parseFloat(gstAmt0 + gstAmt1+ gstAmt2 + gstAmt3).toFixed(2)
 	var subTotal = parseFloat(subTotal0+subTotal1+subTotal2+subTotal3).toFixed(2)
 	var total = parseFloat(totalGst) + parseFloat(subTotal)
