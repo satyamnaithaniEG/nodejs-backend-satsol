@@ -1,14 +1,18 @@
 module.exports = (arr) => {
 	const today = new Date();
 
-	var subTotal0 = arr[0] === '' ? 0 :parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout);
-	var gstAmt0 = arr[0] === '' ? 0 :(parseFloat(arr[0].gst)/100)*subTotal0;
-	var subTotal1 = arr[1] === '' ? 0 :parseFloat(arr[1].sellingRate)* parseFloat(arr[1].checkout);
-	var gstAmt1 = arr[1] === '' ? 0 :(parseFloat(arr[1].gst)/100)*subTotal1;
-	var subTotal2 = arr[2] === '' ? 0 :parseFloat(arr[2].sellingRate)* parseFloat(arr[2].checkout);
-	var gstAmt2 = arr[2] === '' ? 0 :(parseFloat(arr[2].gst)/100)*subTotal2;
-	var subTotal3 =arr[3] === '' ? 0 : parseFloat(arr[3].sellingRate)* parseFloat(arr[3].checkout);
-	var gstAmt3 = arr[3] === '' ? 0 :(parseFloat(arr[3].gst)/100)*subTotal3;
+	var subTotal0 = arr[0] === '' ? 0 :parseFloat(parseFloat(arr[0].sellingRate)* parseFloat(arr[0].checkout)).toFixed(2);
+	var gstAmt0 = arr[0] === '' ? 0 :(parseFloat((arr[0].gst)/100)*subTotal0).toFixed(2);
+	var subTotal1 = arr[1] === '' ? 0 :parseFloat(parseFloat(arr[1].sellingRate)* parseFloat(arr[1].checkout)).toFixed(2);
+	var gstAmt1 = arr[1] === '' ? 0 :(parseFloat((arr[1].gst)/100)*subTotal1).toFixed(2);
+	var subTotal2 = arr[2] === '' ? 0 :parseFloat(parseFloat(arr[2].sellingRate)* parseFloat(arr[2].checkout)).toFixed(2);
+	var gstAmt2 = arr[2] === '' ? 0 :(parseFloat((arr[2].gst)/100)*subTotal2).toFixed(2);
+	var subTotal3 =arr[3] === '' ? 0 : parseFloat(parseFloat(arr[3].sellingRate)* parseFloat(arr[3].checkout)).toFixed(2);
+	var gstAmt3 = arr[3] === '' ? 0 :(parseFloat((arr[3].gst)/100)*subTotal3).toFixed(2);
+	var totalGst = parseFloat(gstAmt0 + gstAmt1+ gstAmt2 + gstAmt3).toFixed(2)
+	var subTotal = parseFloat(subTotal0+subTotal1+subTotal2+subTotal3).toFixed(2)
+	var total = parseFloat(totalGst) + parseFloat(subTotal)
+	var grandTotal = parseFloat(total).toFixed(2)
  
  return `
  <!DOCTYPE html>
@@ -375,7 +379,7 @@ module.exports = (arr) => {
 	    <div id="note">
 		    <br/>
 			<h4>Amount Chargeable(in words) :</h4>
-			<p>${arr[19]}</p>
+			<p>${'INR ' + arr[19]}</p>
 		</div>
 		<div id="note">
 		    <br/>
@@ -390,27 +394,27 @@ module.exports = (arr) => {
 			<table border="1">
 				<tr>
 					<td>Total Amount</td>
-					<td>₹${subTotal0+subTotal1+subTotal2+subTotal3}</td>
+					<td>₹${subTotal}</td>
 				</tr>
 				<tr>
 					<td>CGST</td>
-					<td>₹${arr[18]?'0':(gstAmt0+gstAmt1+gstAmt2+gstAmt3)/2}</td>
+					<td>₹${arr[18]?'0':(totalGst)/2}</td>
 				</tr>
 				<tr>
 					<td>SGST</td>
-					<td>₹${arr[18]?'0':(gstAmt0+gstAmt1+gstAmt2+gstAmt3)/2}</td>
+					<td>₹${arr[18]?'0':(totalGst)/2}</td>
 				</tr>
 				<tr>
 					<td>IGST</td>
-					<td>₹${arr[18]?gstAmt0+gstAmt1+gstAmt2+gstAmt3:'0'}</td>
+					<td>₹${arr[18]?totalGst:'0'}</td>
 				</tr>
 				<tr>
 					<td>Total GST Amount</td>
-					<td>₹${gstAmt0+gstAmt1+gstAmt2+gstAmt3}</td>
+					<td>₹${totalGst}</td>
 				</tr>
 				<tr>
 					<td>Grand Total</td>
-					<td>₹${subTotal0+subTotal1+subTotal2+subTotal3+gstAmt0+gstAmt1+gstAmt2+gstAmt3}</td>
+					<td>₹${grandTotal}</td>
 				</tr>
 			</table>
 		</div>
