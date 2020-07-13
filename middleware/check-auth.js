@@ -19,6 +19,10 @@ const BlacklistedTokens = require('../models/blacklistedTokens')
         console.log({
           message: 'blacklistedtoken database error',
           error: err})
+          res.status(401).json({
+            message:'Login Again!',
+            error:err
+          })
         });
 
      
