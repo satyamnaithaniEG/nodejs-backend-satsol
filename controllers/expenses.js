@@ -131,6 +131,47 @@ exports.expenses_get_by_name_expenses = (req, res, next) => {
         catch(err => res.status(500).json(err))
 }
 
+exports.expenses_get_by_name_details_expenses = (req, res, next) => {
+
+    var date = new Date()
+  
+    var dateOnMonthStart = new Date(date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z')
+    
+    if(req.params.name === 'all'){
+        Expense.aggregate([
+            { 
+                $match: { date: { $gte: dateOnMonthStart, $lte: date } } 
+            },
+        {
+            $sort : { date: 1 }
+          }
+        ]).
+            then(response => {
+                
+                
+                res.status(200).json(response)
+            }).
+            catch(err => res.status(500).json(err))
+    }else {
+        Expense.aggregate([
+            { 
+                $match: { $and: [ { date: { $gte: dateOnMonthStart, $lte: date } }, { addedBy: req.params.name} ] } 
+            },
+        {
+            $sort : { date: 1 }
+          }
+        ]).
+            then(response => {
+                
+                
+                res.status(200).json(response)
+            }).
+            catch(err => res.status(500).json(err))
+    }
+    
+}
+
+
 
 exports.expenses_create_expense = (req, res, next) => {
 
