@@ -495,6 +495,7 @@ exports.sales_get_monthly_profit_details = (req, res, next) => {
           customerName: data.customerName,
           invoiceNo: data.invoiceNo,
           date: data.date,
+          expense:data.expense,
           addedBy: data.addedBy
         }
 
