@@ -19,7 +19,8 @@ const salesSchema = mongoose.Schema({
     termsOfDelivery: {type: String},
     interState: {type: Boolean},
     grandTotalInWords:{type: String},
-    addedBy: {type: String}
+    addedBy: {type: String},
+    expense: {type: Number, default: 0}
 });
 
 module.exports = mongoose.model('Sales', salesSchema);

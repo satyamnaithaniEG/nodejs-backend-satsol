@@ -65,22 +65,29 @@ exports.purchase_create_purchase = (req, res, next) => {
 }
 
 exports.purchase_get_total_purchase_amount = (req, res, next) => {
-    Purchase.find()
+    var date = new Date()
+  var quarterly_month = date.toISOString().split('-')[1] <= 9 ? '0' + (date.toISOString().split('-')[1] - 4) : date.toISOString().split('-')[1] - 3
+  var quarterlyDate = new Date(date.toISOString().split('-')[0] + '-' + quarterly_month + '-' + '01' + 'T' + '00:00:00.000Z')
+    Purchase.find({
+        "billDate": { $gte: quarterlyDate, $lte: date }
+      })
         .exec()
         .then(docs => {
             var totalPrice = 0,
                 totalRate = 0,
                 totalGst = 0
             for(var i=0; i< docs.length;i++) {
-               totalRate= totalRate + docs[i].purchaseRate*docs[i].quantity;
-               totalGst= totalGst + docs[i].purchaseRate*(docs[i].gst/100)*docs[i].quantity;
-               totalPrice = totalGst + totalRate
+               totalRate += (docs[i].rate*docs[i].quantity);
+               totalGst += docs[i].rate*(docs[i].gst/100)*docs[i].quantity;
             }
+            totalPrice = totalGst + totalRate
+
             const response = {
                 count: docs.length,
                 rate: totalRate.toFixed(2),
                 gst: totalGst.toFixed(2),
                 total: totalPrice.toFixed(2),
+                quarterlyMonthStartDate: quarterlyDate.toDateString()
             }
             res.status(200).json(response)
 

@@ -1,4 +1,4 @@
-
+const Expense = require('../models/expenses')
 const Sales = require('../models/sales')
 const Stock = require('../models/stock');
 const mongoose = require('mongoose');
@@ -126,17 +126,17 @@ exports.sales_create_sales = async (req, res, next) => {
 
 exports.sales_get_sales = (req, res, next) => {
   global.count
-  Sales.count().exec().then(response=>global.count=response).catch(error=> res.status(500).json(error))
+  Sales.count().exec().then(response => global.count = response).catch(error => res.status(500).json(error))
   Sales.find()
-  .sort({_id: -1})
-  .skip(parseInt(req.params.skip))
-  .limit(parseInt(req.params.limit))
+    .sort({ _id: -1 })
+    .skip(parseInt(req.params.skip))
+    .limit(parseInt(req.params.limit))
     //.select()
     .exec()
     .then(response => {
       const result = {
-          count: global.count,
-          sales: response
+        count: global.count,
+        sales: response
       }
       res.status(200).json(result)
 
@@ -214,238 +214,362 @@ exports.sales_get_recent_sale = (req, res, next) => {
 
 exports.sales_get_monthly_sale_details = (req, res, next) => {
   var date = new Date()
-  var dateOnMonthStart = new Date(date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z')
+  var dateOnMonthStart = new Date(date.toISOString().split('-')[0] + '-' + date.toISOString().split('-')[1] + '-' + '01' + 'T' + '00:00:00.000Z')
   Sales.find({
-   "date": { $gte: dateOnMonthStart, $lte: date }
+    "date": { $gte: dateOnMonthStart, $lte: date }
   })
-      .exec()
-      .then(docs => {
-        var totalPrice = 0,
-            totalRate = 0,
-            totalGst = 0
-        for(var i=0; i< docs.length;i++) {
-           totalRate= totalRate + docs[i].totalRate;
-           totalGst= totalGst + docs[i].totalGst;
-           totalPrice = totalGst + totalRate
-        }
-        const response = {
-            count: docs.length,
-            rate: parseFloat(totalRate.toFixed(2)),
-            gst: parseFloat(totalGst.toFixed(2)),
-            total: parseFloat(totalPrice.toFixed(2)),
-            grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
-        }
-        res.status(200).json(response)
+    .exec()
+    .then(docs => {
+      var totalPrice = 0,
+        totalRate = 0,
+        totalGst = 0
+      for (var i = 0; i < docs.length; i++) {
+        totalRate = totalRate + docs[i].totalRate;
+        totalGst = totalGst + docs[i].totalGst;
+        totalPrice = totalGst + totalRate
+      }
+      const response = {
+        count: docs.length,
+        rate: parseFloat(totalRate.toFixed(2)),
+        gst: parseFloat(totalGst.toFixed(2)),
+        total: parseFloat(totalPrice.toFixed(2)),
+        grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        })
 
-      })
+    })
 }
 
 exports.sales_get_monthly_sale_details = (req, res, next) => {
   var date = new Date()
-  var dateOnMonthStart = new Date(date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z')
+  var dateOnMonthStart = new Date(date.toISOString().split('-')[0] + '-' + date.toISOString().split('-')[1] + '-' + '01' + 'T' + '00:00:00.000Z')
   Sales.find({
-   "date": { $gte: dateOnMonthStart, $lte: date }
+    "date": { $gte: dateOnMonthStart, $lte: date }
   })
-      .exec()
-      .then(docs => {
-        var totalPrice = 0,
-            totalRate = 0,
-            totalGst = 0
-        for(var i=0; i< docs.length;i++) {
-           totalRate= totalRate + docs[i].totalRate;
-           totalGst= totalGst + docs[i].totalGst;
-           totalPrice = totalGst + totalRate
-        }
-        const response = {
-            count: docs.length,
-            rate: parseFloat(totalRate.toFixed(2)),
-            gst: parseFloat(totalGst.toFixed(2)),
-            total: parseFloat(totalPrice.toFixed(2)),
-            grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
-        }
-        res.status(200).json(response)
+    .exec()
+    .then(docs => {
+      var totalPrice = 0,
+        totalRate = 0,
+        totalGst = 0
+      for (var i = 0; i < docs.length; i++) {
+        totalRate = totalRate + docs[i].totalRate;
+        totalGst = totalGst + docs[i].totalGst;
+        totalPrice = totalGst + totalRate
+      }
+      const response = {
+        count: docs.length,
+        rate: parseFloat(totalRate.toFixed(2)),
+        gst: parseFloat(totalGst.toFixed(2)),
+        total: parseFloat(totalPrice.toFixed(2)),
+        grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        })
 
-      })
+    })
 }
 exports.sales_get_quarterly_sale_details = (req, res, next) => {
   var date = new Date()
-  var quarterly_month = date.toISOString().split('-')[1] <= 9?'0'+(date.toISOString().split('-')[1]-3):date.toISOString().split('-')[1]-3
-  var quarterlyDate = new Date(date.toISOString().split('-')[0]+'-'+quarterly_month+'-'+ '01' +'T'+ '00:00:00.000Z')
+  var quarterly_month = date.toISOString().split('-')[1] <= 9 ? '0' + (date.toISOString().split('-')[1] - 4) : date.toISOString().split('-')[1] - 3
+  var quarterlyDate = new Date(date.toISOString().split('-')[0] + '-' + quarterly_month + '-' + '01' + 'T' + '00:00:00.000Z')
   Sales.find({
-   "date": { $gte: quarterlyDate, $lte: date }
+    "date": { $gte: quarterlyDate, $lte: date }
   })
-      .exec()
-      .then(docs => {
-        var totalPrice = 0,
-            totalRate = 0,
-            totalGst = 0
-        for(var i=0; i< docs.length;i++) {
-           totalRate= totalRate + docs[i].totalRate;
-           totalGst= totalGst + docs[i].totalGst;
-           totalPrice = totalGst + totalRate
-        }
-        
-        const response = {
-            count: docs.length,
-            rate: parseFloat(totalRate.toFixed(2)),
-            gst: parseFloat(totalGst.toFixed(2)),
-            total: parseFloat(totalPrice.toFixed(2)),
-            quarterlyMonthStartDate: quarterlyDate.toDateString(),
-            grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
-        }
-        res.status(200).json(response)
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        })
+    .exec()
+    .then(docs => {
+      var totalPrice = 0,
+        totalRate = 0,
+        totalGst = 0
+      for (var i = 0; i < docs.length; i++) {
+        totalRate = totalRate + docs[i].totalRate;
+        totalGst = totalGst + docs[i].totalGst;
+        totalPrice = totalGst + totalRate
+      }
 
+      const response = {
+        count: docs.length,
+        rate: parseFloat(totalRate.toFixed(2)),
+        gst: parseFloat(totalGst.toFixed(2)),
+        total: parseFloat(totalPrice.toFixed(2)),
+        quarterlyMonthStartDate: quarterlyDate.toDateString(),
+        grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       })
+
+    })
 }
 
 exports.sales_get_last_month_sale_details = (req, res, next) => {
-  var date = new Date() 
-  var dateOnMonthStart = new Date(date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z')
+  var date = new Date()
+  var dateOnMonthStart = new Date(date.toISOString().split('-')[0] + '-' + date.toISOString().split('-')[1] + '-' + '01' + 'T' + '00:00:00.000Z')
   var lastDateOfPreviousMonth = dateOnMonthStart
   lastDateOfPreviousMonth.setDate(lastDateOfPreviousMonth.getDate() - 1);
-  var dateOnPreviousMonthStart = lastDateOfPreviousMonth.toISOString().split('-')[0] +'-'+ lastDateOfPreviousMonth.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
+  var dateOnPreviousMonthStart = lastDateOfPreviousMonth.toISOString().split('-')[0] + '-' + lastDateOfPreviousMonth.toISOString().split('-')[1] + '-' + '01' + 'T' + '00:00:00.000Z'
   Sales.find({
-   "date": { $gte: new Date(dateOnPreviousMonthStart), $lte: new Date(lastDateOfPreviousMonth) }
+    "date": { $gte: new Date(dateOnPreviousMonthStart), $lte: new Date(lastDateOfPreviousMonth) }
   })
-      .exec()
-      .then(docs => {
-        var totalPrice = 0,
-            totalRate = 0,
-            totalGst = 0
-        for(var i=0; i< docs.length;i++) {
-           totalRate= totalRate + docs[i].totalRate;
-           totalGst= totalGst + docs[i].totalGst;
-           totalPrice = totalGst + totalRate
-        }
-        const response = {
-            count: docs.length,
-            rate: parseFloat(totalRate.toFixed(2)),
-            gst: parseFloat(totalGst.toFixed(2)),
-            total: parseFloat(totalPrice.toFixed(2)),
-            grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
-        }
-        res.status(200).json(response)
+    .exec()
+    .then(docs => {
+      var totalPrice = 0,
+        totalRate = 0,
+        totalGst = 0
+      for (var i = 0; i < docs.length; i++) {
+        totalRate = totalRate + docs[i].totalRate;
+        totalGst = totalGst + docs[i].totalGst;
+        totalPrice = totalGst + totalRate
+      }
+      const response = {
+        count: docs.length,
+        rate: parseFloat(totalRate.toFixed(2)),
+        gst: parseFloat(totalGst.toFixed(2)),
+        total: parseFloat(totalPrice.toFixed(2)),
+        grandTotalInWords: toWords.convert(totalPrice.toFixed(2))
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        })
 
-      })
+    })
 }
 
 
 exports.sales_get_current_month_sale_details_chart = (req, res, next) => {
   var date = new Date()
-  var dateOnMonthStart = date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
+  var dateOnMonthStart = date.toISOString().split('-')[0] + '-' + date.toISOString().split('-')[1] + '-' + '01' + 'T' + '00:00:00.000Z'
   Sales.find({
     "date": { $gte: dateOnMonthStart, $lte: date }
-   })
-  .sort({date: 1})
-      .exec()
-      .then(docs => {
-        const response = {
-         sale: docs.map(data=> {
-          const date = data.date === null? '': data.date.toISOString().split('-')[2].split('T')[0] + new Date().toDateString().split(' ')[1]
+  })
+    .sort({ date: 1 })
+    .exec()
+    .then(docs => {
+      const response = {
+        sale: docs.map(data => {
+          const date = data.date === null ? '' : data.date.toISOString().split('-')[2].split('T')[0] + new Date().toDateString().split(' ')[1]
           // + '/'+data.date.toISOString().split('-')[1]
-           return {
-             time: date,
-             amount: data.grandTotal
-           }
-         }
-          
-         )
+          return {
+            time: date,
+            amount: data.grandTotal
+          }
         }
-        res.status(200).json(response)
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        })
 
+        )
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       })
+
+    })
 }
 exports.sales_get_previous_month_sale_details_chart = (req, res, next) => {
-  var date = new Date() 
-  var dateOnMonthStart = new Date(date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z')
+  var date = new Date()
+  var dateOnMonthStart = new Date(date.toISOString().split('-')[0] + '-' + date.toISOString().split('-')[1] + '-' + '01' + 'T' + '00:00:00.000Z')
   var lastDateOfPreviousMonth = dateOnMonthStart
   lastDateOfPreviousMonth.setDate(lastDateOfPreviousMonth.getDate() - 1);
-  var dateOnPreviousMonthStart = lastDateOfPreviousMonth.toISOString().split('-')[0] +'-'+ lastDateOfPreviousMonth.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
+  var dateOnPreviousMonthStart = lastDateOfPreviousMonth.toISOString().split('-')[0] + '-' + lastDateOfPreviousMonth.toISOString().split('-')[1] + '-' + '01' + 'T' + '00:00:00.000Z'
   Sales.find({
     "date": { $gte: dateOnPreviousMonthStart, $lte: lastDateOfPreviousMonth }
-   })
-  .sort({date: 1})
-      .exec()
-      .then(docs => {
-        const response = {
-         sale: docs.map(data=> {
-          const date = data.date === null? '': data.date.toISOString().split('-')[2].split('T')[0] + lastDateOfPreviousMonth.toDateString().split(' ')[1]
+  })
+    .sort({ date: 1 })
+    .exec()
+    .then(docs => {
+      const response = {
+        sale: docs.map(data => {
+          const date = data.date === null ? '' : data.date.toISOString().split('-')[2].split('T')[0] + lastDateOfPreviousMonth.toDateString().split(' ')[1]
           // + '/'+data.date.toISOString().split('-')[1]
-           return {
-             time: date,
-             amount: data.grandTotal
-           }
-         }
-          
-         )
+          return {
+            time: date,
+            amount: data.grandTotal
+          }
         }
-        res.status(200).json(response)
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        })
 
+        )
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       })
+
+    })
 }
 exports.sales_get_monthly_sale_details_hospital_chart = (req, res, next) => {
   var date = new Date()
-  var dateOnMonthStart = date.toISOString().split('-')[0] +'-'+ date.toISOString().split('-')[1]+'-'+ '01' +'T'+ '00:00:00.000Z'
+  var dateOnMonthStart = date.toISOString().split('-')[0] + '-' + date.toISOString().split('-')[1] + '-' + '01' + 'T' + '00:00:00.000Z'
   Sales.find({
     "date": { $gte: dateOnMonthStart, $lte: date }
-   })
-  .sort({date: 1})
-      .exec()
-      .then(docs => {
-        const response = {
-         sale: docs.map(data=> {
-           return {
-             time: data.customerName,
-             amount: data.grandTotal
-           }
-         }
-          
-         )
+  })
+    .sort({ date: 1 })
+    .exec()
+    .then(docs => {
+      const response = {
+        sale: docs.map(data => {
+          return {
+            time: data.customerName,
+            amount: data.grandTotal
+          }
         }
-        res.status(200).json(response)
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        })
 
+        )
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
       })
+
+    })
 }
 
+
+
+exports.sales_get_monthly_profit_details = (req, res, next) => {
+  var date = new Date()
+  var dateOnMonthStart = date.toISOString().split('-')[0] + '-' + date.toISOString().split('-')[1] + '-' + '01' + 'T' + '00:00:00.000Z'
+  Sales.find({
+    "date": { $gte: dateOnMonthStart, $lte: date }
+  })
+    .sort({ date: 1 })
+    .exec()
+    .then(docs => {
+      let totalPurchaseRate = 0;
+      let totalSellingRate = 0;
+      let totalPurchaseGst = 0;
+      let totalSellingGst = 0;
+      let totalGoodsExpense = 0; 
+      const arr = [];
+      docs.map(data => {
+        let itemArr =[];
+        data.orderData.map(data => {
+          let sellingRate = data.sellingRate + data.sellingRate*(data.gst/100) // inclusive gst
+          let profit = parseFloat(parseFloat(sellingRate - data.purchaseRate).toFixed(2))
+          totalPurchaseRate = parseFloat(parseFloat(totalPurchaseRate + (data.purchaseRate * data.checkout)).toFixed(2))
+          totalPurchaseGst = parseFloat(parseFloat(totalPurchaseGst + data.rate*(data.gst/100)*data.checkout).toFixed(2))
+          totalSellingRate = parseFloat(parseFloat(totalSellingRate + (sellingRate * data.checkout)).toFixed(2))
+          totalSellingGst = parseFloat(parseFloat(totalSellingGst + data.sellingRate*(data.gst/100)*data.checkout).toFixed(2))
+          const response = {
+            item: data.item,
+            checkoutOuantity: data.checkout,
+            gst: data.gst,
+            purchaseRateWithoutGst: data.rate,
+            purchaseRate: data.purchaseRate,  // gst already included
+            sellingRateWithoutGst : data.sellingRate,
+            sellingRate: sellingRate,
+            profitPerUnit: profit,
+            netProfit: parseFloat(parseFloat(profit*data.checkout).toFixed(2))
+          }
+        itemArr.push(response)
+
+        })
+
+        const output = {
+          itemArr: itemArr,
+          customerName: data.customerName,
+          invoiceNo: data.invoiceNo,
+          date: data.date,
+          addedBy: data.addedBy
+        }
+
+        arr.push(output)
+        totalGoodsExpense += data.expense 
+      })
+    Expense.find({
+      "date": { $gte: dateOnMonthStart, $lte: date }
+    }).
+        then(response => {
+            var transportationSum = 0;
+            var consumablesSum = 0;
+            var utilitySum = 0;
+            
+            for(var i = 0; i< response.length; i++) {
+                if(response[i].type === 'Transportation'){
+                    transportationSum += response[i].amount
+                   
+                }
+                else if(response[i].type === 'Consumables'){
+                    consumablesSum += response[i].amount
+                  
+                }
+                else if(response[i].type === 'Utility'){
+                    utilitySum += response[i].amount
+                   
+                }    
+            }
+            const result = {
+              data: arr,
+              totalPurchaseRateIncludingGst: totalPurchaseRate,
+              totalPurchaseGst: totalPurchaseGst,
+              totalSellingRateIncludingGst: totalSellingRate,
+              totalSellingGst: totalSellingGst,
+              gstReturn: parseFloat((totalSellingGst - totalPurchaseGst).toFixed(2)),
+              profitsExcludingExpenses: parseFloat((totalSellingRate - totalPurchaseRate).toFixed(2)),
+              totalTransportationCost: transportationSum,
+              totalUtilityCost: utilitySum,
+              totalConsumablesCost: consumablesSum,
+              totalExpenses: transportationSum + utilitySum + consumablesSum,
+              totalGoodsExpense: totalGoodsExpense,
+              netProfit: parseFloat((totalSellingRate - totalPurchaseRate).toFixed(2)) - (transportationSum + utilitySum + consumablesSum + totalGoodsExpense)
+              
+             
+            }
+            res.status(200).json(result)
+        }).
+        catch(err => res.status(500).json(err))  
+    
+    })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            error: err
+          })
+
+        })
+    }
+
+
+
+    exports.sales_update_expense =  (req, res, next) => {
+      const id = req.params.salesId;
+        Sales.update({_id: id}, { $set: { expense: parseFloat(req.body.expense)} })
+        .exec()
+        .then(response => {
+            res.status(201).json({
+                message: 'Expense updated',
+                status: response
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error: err})
+        })
+  
+      }
+  
