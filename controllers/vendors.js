@@ -2,6 +2,28 @@
 const Vendor = require('../models/vendor')
 const mongoose = require('mongoose');
 
+exports.vendors_get_all_vendors =  (req, res, next) => {
+    Vendor.find()
+    .exec()
+    .then(docs => {
+        const response = {
+            count: docs.length,
+            items: docs.map(doc => {
+                return {
+                  data: doc
+                }
+            })
+        }
+        res.status(200).json(response)
+    
+    })
+    .catch(err => {
+        res.status(500).json({
+            error: err
+        })
+    });
+}
+
 
 exports.vendors_get_all_vendor_name =  (req, res, next) => {
     Vendor.find()
