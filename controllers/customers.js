@@ -96,10 +96,6 @@ exports.customers_update_customer =  (req, res, next) => {
       .then(response => {
           res.status(201).json({
               message: 'Customer updated',
-              request: {
-                  type: 'GET',
-                  url: 'http://localhost:3000/products/' + id
-              }
           });
       })
       .catch(err => {

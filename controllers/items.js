@@ -100,3 +100,44 @@ exports.items_get_item_details =  (req, res, next) => {
     });
  }
 
+ exports.items_update_item =  (req, res, next) => {
+    const id = req.params.id;
+       
+    Item.update({_id: id}, { $set: { 
+         catogory: req.body.category,
+          name: req.body.name,
+          hsn: req.body.hsn,
+          gst: req.body.gst,
+          uom: req.body.uom,
+        } })
+      .exec()
+      .then(response => {
+          res.status(201).json({
+              message: 'Item updated'
+          });
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json({error: err})
+      })
+
+    }
+    exports.items_delete_item = (req, res, next) => {
+        const id = req.params.id;
+        Item.remove({_id: id})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Item deleted',
+                result: result
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+
+

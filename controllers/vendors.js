@@ -97,3 +97,51 @@ exports.vendors_get_all_vendor_name =  (req, res, next) => {
     });
 }
 
+
+exports.vendors_update_customer =  (req, res, next) => {
+    const id = req.params.id;  
+    Vendor.update({_id: id}, { $set: { 
+         name: req.body.name,
+         address: req.body.address,
+         city:req.body.city,
+         state: req.body.state,
+         zip: req.body.zip,
+         gst: req.body.gst,
+         dl: req.body.dl,
+         contact: req.body.contact,
+         person: req.body.person
+        } })
+      .exec()
+      .then(response => {
+          res.status(201).json({
+              message: 'Customer updated',
+              request: {
+                  type: 'GET',
+                  url: 'http://localhost:3000/products/' + id
+              }
+          });
+      })
+      .catch(err => {
+          console.log(err);
+          res.status(500).json({error: err})
+      })
+
+    }
+    exports.vendors_delete_customer = (req, res, next) => {
+        const id = req.params.id;
+        Vendor.remove({_id: id})
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: 'Product deleted',
+                result: result
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json({
+                error: err
+            });
+        });
+    }
+
