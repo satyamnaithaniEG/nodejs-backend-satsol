@@ -400,7 +400,52 @@ exports.sales_get_previous_month_sale_details_chart = (req, res, next) => {
       const response = {
         sale: docs.map(data => {
           const date = data.date === null ? '' : data.date.toISOString().split('-')[2].split('T')[0] + lastDateOfPreviousMonth.toDateString().split(' ')[1]
-          // + '/'+data.date.toISOString().split('-')[1]
+          return {
+            time: date,
+            amount: data.grandTotal
+          }
+        }
+
+        )
+      }
+      res.status(200).json(response)
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      })
+
+    })
+}
+exports.sales_get_sale_history_details_chart = (req, res, next) => {
+  var type = req.params.type;
+  var date = new Date()
+  if(type === 'quarterly'){
+    date.setMonth(date.getMonth()-4)
+  date.setDate(01)
+  }
+  else if (type === 'halfyearly'){
+    date.setMonth(date.getMonth()-6)
+  date.setDate(01)
+  }
+  else if (type === 'anually'){
+   date.setMonth(date.getMonth()-12)
+  date.setDate(01)
+  }
+  else {
+    res.status(404).json({"message": "Please Enter params as quarterly/halfyearly/anually"})
+  }
+  
+  Sales.find({
+    "date": { $gte: date, $lte: new Date() }
+  })
+    .sort({ date: 1 })
+    .exec()
+    .then(docs => {
+      const response = {
+        sale: docs.map(data => {
+          const date = data.date === null ? '' : data.date.toISOString().split('-')[2].split('T')[0]  + data.date.toDateString().split(' ')[1]
           return {
             time: date,
             amount: data.grandTotal
@@ -498,7 +543,6 @@ exports.sales_get_monthly_profit_details = (req, res, next) => {
           expense:data.expense,
           addedBy: data.addedBy
         }
-
         arr.push(output)
         totalGoodsExpense += data.expense 
       })

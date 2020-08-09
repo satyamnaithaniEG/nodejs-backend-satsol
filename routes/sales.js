@@ -17,6 +17,7 @@ router.get('/quarterly',checkAuth,SalesController.sales_get_quarterly_sale_detai
 router.get('/last-month',checkAuth,SalesController.sales_get_last_month_sale_details)
 router.get('/sales-chart-current-month',checkAuth, SalesController.sales_get_current_month_sale_details_chart)
 router.get('/sales-chart-previous-month',checkAuth, SalesController.sales_get_previous_month_sale_details_chart)
+router.get('/sales-history-chart/:type/:e', SalesController.sales_get_sale_history_details_chart) // type = Quarterly || Halfyearly || Anually
 router.get('/sales-chart-hospital',checkAuth,SalesController.sales_get_monthly_sale_details_hospital_chart)
 router.get('/profits',checkAuth,SalesController.sales_get_monthly_profit_details)
 router.patch('/:salesId', checkAuth, SalesController.sales_update_expense);
