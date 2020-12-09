@@ -52,6 +52,7 @@ exports.items_get_all_item_name =  (req, res, next) => {
     }else {
         res.status(500).json('Catogory Not Found!')
     }
+    console.log(global.itemCode)
     const item = new Item({
         _id: new mongoose.Types.ObjectId(),
         catogory: req.body.catogory,

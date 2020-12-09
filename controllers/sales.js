@@ -283,6 +283,7 @@ exports.sales_get_quarterly_sale_details = (req, res, next) => {
   var date = new Date()
   var quarterly_month = date.toISOString().split('-')[1] <= 9 ? '0' + (date.toISOString().split('-')[1] - 4) : date.toISOString().split('-')[1] - 3
   var quarterlyDate = new Date(date.toISOString().split('-')[0] + '-' + quarterly_month + '-' + '01' + 'T' + '00:00:00.000Z')
+  //console.log(quarterlyDate);
   Sales.find({
     "date": { $gte: quarterlyDate, $lte: date }
   })
