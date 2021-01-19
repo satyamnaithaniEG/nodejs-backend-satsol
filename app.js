@@ -27,15 +27,15 @@ const expenseRoute = require("./routes/expenses");
 //app.use(allowCrossDomain); // plumbing it in as middleware
 app.use(cors());
 
-// mongoose.connect(
-//   "mongodb+srv://satsol:" +
-//     process.env.MONGO_ATLAS_PW +
-//     "@cluster0-wmljt.mongodb.net/test?retryWrites=true&w=majority"
-// );
-
 mongoose.connect(
-  "mongodb+srv://satsol:2346@cluster0.0xn3d.mongodb.net/test?retryWrites=true&w=majority"
+  "mongodb+srv://satsol:" +
+    process.env.MONGO_ATLAS_PW +
+    "@cluster0-wmljt.mongodb.net/test?retryWrites=true&w=majority"
 );
+
+// mongoose.connect(
+//   "mongodb+srv://satsol:2346@cluster0.0xn3d.mongodb.net/test?retryWrites=true&w=majority"
+// );
 
 mongoose.Promise = global.Promise;
 
